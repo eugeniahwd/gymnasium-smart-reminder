@@ -1,0 +1,100 @@
+{
+  "model_version": "lr-20261031-v1",
+  "model_name": "Logistic Regression",
+  "trained_at": "2026-10-31T18:21:53",
+  "seed": 42,
+  "classes": [
+    "High",
+    "Low",
+    "Medium"
+  ],
+  "features": {
+    "numeric": [
+      "attendance_rate_30d",
+      "attendance_rate_90d",
+      "absent_count_30d",
+      "consecutive_absences",
+      "reschedule_count_90d",
+      "reminder_response_rate",
+      "no_response_streak",
+      "avg_response_time_hours",
+      "days_since_last_attendance",
+      "days_since_last_reminder",
+      "tenure_days"
+    ],
+    "categorical": [
+      "persona",
+      "favorite_class_type"
+    ]
+  },
+  "best_params": {
+    "Logistic Regression": {
+      "C": 0.1
+    },
+    "Random Forest": {
+      "max_depth": 6,
+      "min_samples_leaf": 1,
+      "n_estimators": 200
+    }
+  },
+  "n_rows": 1304,
+  "n_train": 1041,
+  "n_test": 263,
+  "test_metrics": {
+    "Logistic Regression": {
+      "accuracy": 0.7034220532319392,
+      "macro_f1": 0.6696104461390154,
+      "recall_high": 0.6909090909090909,
+      "confusion_matrix": [
+        [
+          107,
+          17,
+          3
+        ],
+        [
+          20,
+          40,
+          21
+        ],
+        [
+          4,
+          13,
+          38
+        ]
+      ]
+    }
+  },
+  "test_metrics_per_class": {
+    "Low": {
+      "precision": 0.816793893129771,
+      "recall": 0.84251968503937,
+      "f1": 0.8294573643410853,
+      "support": 127
+    },
+    "Medium": {
+      "precision": 0.5714285714285714,
+      "recall": 0.49382716049382713,
+      "f1": 0.5298013245033113,
+      "support": 81
+    },
+    "High": {
+      "precision": 0.6129032258064516,
+      "recall": 0.6909090909090909,
+      "f1": 0.6495726495726496,
+      "support": 55
+    }
+  },
+  "cv_macro_f1": {
+    "cv_macro_f1_mean": 0.655426344477226,
+    "cv_macro_f1_std": 0.035408198302243094
+  },
+  "baseline_rule": "High jika attendance_rate_30d < 0.4 atau consecutive_absences >= 3; Medium jika attendance_rate_30d < 0.65 atau consecutive_absences >= 1; selain itu Low.",
+  "versions": {
+    "sklearn": "1.9.1",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4",
+    "python": "3.12.10"
+  },
+  "sklearn_version": "1.9.1",
+  "disclaimer": "Dilatih pada data synthetic; prototype, bukan klaim performa di kondisi nyata."
+}
