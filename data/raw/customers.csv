@@ -1,0 +1,401 @@
+id,nama,no_whatsapp,persona,catatan,join_date,created_at
+1,Ayu Halim,628990000001,menengah_atas,,2025-09-05,2025-09-05
+2,Wati Utami,628990000002,ibu-ibu,,2025-12-18,2025-12-18
+3,Linda Permata,628990000003,menengah_atas,,2026-03-05,2026-03-05
+4,Vera Permata,628990000004,lansia,,2026-07-27,2026-07-27
+5,Maria Permata,628990000005,ibu-ibu,,2026-05-24,2026-05-24
+6,Vera Setiawan,628990000006,menengah_atas,,2026-06-08,2026-06-08
+7,Dewi Wijaya,628990000007,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2026-03-15,2026-03-15
+8,Anita Rahayu,628990000008,menengah_atas,,2025-10-10,2025-10-10
+9,Rina Susanto,628990000009,ibu-ibu,,2026-01-19,2026-01-19
+10,Lina Susanto,628990000010,lansia,,2026-08-24,2026-08-24
+11,Ratna Pratama,628990000011,ibu-ibu,Lebih suka kelas pagi,2025-09-16,2025-09-16
+12,Sri Wijaya,628990000012,menengah_atas,,2026-07-13,2026-07-13
+13,Joko Wijaya,628990000013,lansia,Lebih suka kelas pagi,2026-05-04,2026-05-04
+14,Wati Salim,628990000014,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2025-12-11,2025-12-11
+15,Agus Putri,628990000015,ibu-ibu,,2026-06-07,2026-06-07
+16,Fitri Susanto,628990000016,ibu-ibu,,2026-06-28,2026-06-28
+17,Susan Wijaya,628990000017,lansia,Lebih suka kelas pagi,2025-09-16,2025-09-16
+18,Eko Tanujaya,628990000018,ibu-ibu,,2025-10-09,2025-10-09
+19,Nur Putri,628990000019,menengah_atas,,2026-04-28,2026-04-28
+20,Hendra Budiman,628990000020,lansia,,2026-08-25,2026-08-25
+21,Nur Santoso,628990000021,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2025-09-09,2025-09-09
+22,Anita Setiawan,628990000022,ibu-ibu,,2026-04-27,2026-04-27
+23,Hendra Lestari,628990000023,menengah_atas,,2025-10-20,2025-10-20
+24,Eko Tanujaya,628990000024,menengah_atas,,2026-04-22,2026-04-22
+25,Endang Halim,628990000025,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2026-04-12,2026-04-12
+26,Fitri Putri,628990000026,ibu-ibu,,2025-10-03,2025-10-03
+27,Linda Handayani,628990000027,lansia,Pernah cedera lutut ringan (sudah sembuh),2026-05-03,2026-05-03
+28,Vera Hartono,628990000028,ibu-ibu,,2026-07-20,2026-07-20
+29,Siti Permata,628990000029,ibu-ibu,,2026-07-07,2026-07-07
+30,Rudi Putri,628990000030,lansia,Pernah cedera lutut ringan (sudah sembuh),2025-09-11,2025-09-11
+31,Ratna Gunawan,628990000031,menengah_atas,,2025-11-28,2025-11-28
+32,Sri Rahayu,628990000032,menengah_atas,,2025-11-26,2025-11-26
+33,Sari Handayani,628990000033,ibu-ibu,Lebih suka kelas pagi,2026-02-10,2026-02-10
+34,Endang Halim,628990000034,ibu-ibu,,2025-10-22,2025-10-22
+35,Susan Hartono,628990000035,lansia,,2026-07-04,2026-07-04
+36,Bambang Hartono,628990000036,ibu-ibu,,2026-06-06,2026-06-06
+37,Endang Pratama,628990000037,ibu-ibu,,2026-06-18,2026-06-18
+38,Indah Utami,628990000038,lansia,,2025-11-11,2025-11-11
+39,Ratna Budiman,628990000039,ibu-ibu,Lebih suka kelas pagi,2025-09-06,2025-09-06
+40,Bambang Wijaya,628990000040,lansia,,2026-07-24,2026-07-24
+41,Aminah Wibowo,628990000041,ibu-ibu,,2025-12-13,2025-12-13
+42,Anita Utami,628990000042,menengah_atas,,2026-04-24,2026-04-24
+43,Rudi Wibowo,628990000043,menengah_atas,,2026-07-24,2026-07-24
+44,Lina Tanujaya,628990000044,ibu-ibu,,2025-09-13,2025-09-13
+45,Lina Kusuma,628990000045,menengah_atas,,2025-09-02,2025-09-02
+46,Aminah Salim,628990000046,menengah_atas,,2025-09-02,2025-09-02
+47,Budi Permata,628990000047,ibu-ibu,,2025-10-27,2025-10-27
+48,Tuti Putri,628990000048,ibu-ibu,,2025-09-19,2025-09-19
+49,Lina Putri,628990000049,lansia,Lebih suka kelas pagi,2026-06-22,2026-06-22
+50,Linda Tanujaya,628990000050,ibu-ibu,,2026-04-06,2026-04-06
+51,Agus Salim,628990000051,ibu-ibu,,2026-08-18,2026-08-18
+52,Dian Handayani,628990000052,ibu-ibu,Dikenalkan teman member,2026-06-15,2026-06-15
+53,Vera Wibowo,628990000053,menengah_atas,,2026-08-12,2026-08-12
+54,Agus Tanujaya,628990000054,lansia,Lebih suka kelas pagi,2025-11-25,2025-11-25
+55,Wati Salim,628990000055,menengah_atas,Dikenalkan teman member,2025-12-13,2025-12-13
+56,Linda Santoso,628990000056,menengah_atas,,2026-07-02,2026-07-02
+57,Vera Lestari,628990000057,lansia,,2025-11-27,2025-11-27
+58,Agus Salim,628990000058,lansia,,2025-09-21,2025-09-21
+59,Lina Halim,628990000059,ibu-ibu,,2026-04-29,2026-04-29
+60,Tuti Rahayu,628990000060,ibu-ibu,,2026-06-15,2026-06-15
+61,Sri Permata,628990000061,lansia,Pernah cedera lutut ringan (sudah sembuh),2026-08-14,2026-08-14
+62,Tono Wijaya,628990000062,lansia,Lebih suka kelas pagi,2026-07-31,2026-07-31
+63,Bambang Wijaya,628990000063,lansia,Pernah cedera lutut ringan (sudah sembuh),2025-10-14,2025-10-14
+64,Hendra Wijaya,628990000064,menengah_atas,,2026-06-05,2026-06-05
+65,Agus Utami,628990000065,lansia,,2026-07-01,2026-07-01
+66,Endang Gunawan,628990000066,lansia,,2026-05-09,2026-05-09
+67,Endang Kusuma,628990000067,lansia,,2026-06-22,2026-06-22
+68,Endang Rahayu,628990000068,ibu-ibu,,2026-06-28,2026-06-28
+69,Agus Handayani,628990000069,ibu-ibu,,2026-02-08,2026-02-08
+70,Budi Salim,628990000070,ibu-ibu,,2025-09-15,2025-09-15
+71,Tono Putri,628990000071,ibu-ibu,,2026-02-11,2026-02-11
+72,Ayu Utami,628990000072,ibu-ibu,,2025-11-12,2025-11-12
+73,Agus Tanujaya,628990000073,menengah_atas,,2025-10-11,2025-10-11
+74,Nur Rahayu,628990000074,ibu-ibu,,2025-10-15,2025-10-15
+75,Rudi Rahayu,628990000075,ibu-ibu,,2026-05-09,2026-05-09
+76,Susan Tanujaya,628990000076,ibu-ibu,,2026-03-01,2026-03-01
+77,Ratna Putri,628990000077,ibu-ibu,,2026-03-13,2026-03-13
+78,Hendra Susanto,628990000078,lansia,,2026-05-26,2026-05-26
+79,Mega Gunawan,628990000079,lansia,,2026-03-16,2026-03-16
+80,Rina Susanto,628990000080,menengah_atas,,2026-04-15,2026-04-15
+81,Dian Hartono,628990000081,lansia,,2025-10-01,2025-10-01
+82,Vera Lestari,628990000082,ibu-ibu,Lebih suka kelas pagi,2026-07-03,2026-07-03
+83,Anita Permata,628990000083,menengah_atas,Dikenalkan teman member,2026-02-09,2026-02-09
+84,Agus Setiawan,628990000084,ibu-ibu,,2025-10-26,2025-10-26
+85,Fitri Pratama,628990000085,ibu-ibu,,2026-06-19,2026-06-19
+86,Yuni Setiawan,628990000086,ibu-ibu,Pernah cedera lutut ringan (sudah sembuh),2026-05-22,2026-05-22
+87,Hendra Gunawan,628990000087,menengah_atas,,2025-09-20,2025-09-20
+88,Retno Rahayu,628990000088,lansia,Dikenalkan teman member,2025-11-09,2025-11-09
+89,Sari Handayani,628990000089,ibu-ibu,,2025-09-06,2025-09-06
+90,Dewi Permata,628990000090,lansia,,2025-12-07,2025-12-07
+91,Fitri Pratama,628990000091,ibu-ibu,,2025-10-06,2025-10-06
+92,Susan Wijaya,628990000092,lansia,,2026-05-13,2026-05-13
+93,Hendra Rahayu,628990000093,ibu-ibu,Lebih suka kelas pagi,2026-03-07,2026-03-07
+94,Endang Saputra,628990000094,ibu-ibu,,2026-08-18,2026-08-18
+95,Anita Setiawan,628990000095,ibu-ibu,,2026-05-28,2026-05-28
+96,Endang Rahayu,628990000096,lansia,Dikenalkan teman member,2026-04-08,2026-04-08
+97,Ratna Saputra,628990000097,ibu-ibu,Pernah cedera lutut ringan (sudah sembuh),2026-03-02,2026-03-02
+98,Tono Wijaya,628990000098,ibu-ibu,,2025-09-20,2025-09-20
+99,Yuni Kusuma,628990000099,ibu-ibu,,2025-09-26,2025-09-26
+100,Wati Kusuma,628990000100,menengah_atas,,2026-04-10,2026-04-10
+101,Budi Wibowo,628990000101,menengah_atas,,2025-09-02,2025-09-02
+102,Tono Wibowo,628990000102,lansia,,2025-09-16,2025-09-16
+103,Endang Rahayu,628990000103,ibu-ibu,,2025-11-18,2025-11-18
+104,Ayu Handayani,628990000104,menengah_atas,,2026-07-15,2026-07-15
+105,Lestari Utami,628990000105,menengah_atas,,2026-02-12,2026-02-12
+106,Linda Utami,628990000106,menengah_atas,Dikenalkan teman member,2026-05-13,2026-05-13
+107,Nur Pratama,628990000107,ibu-ibu,,2026-01-26,2026-01-26
+108,Agus Pratama,628990000108,ibu-ibu,,2025-11-02,2025-11-02
+109,Linda Tanujaya,628990000109,ibu-ibu,,2026-01-12,2026-01-12
+110,Hendra Santoso,628990000110,menengah_atas,,2025-10-03,2025-10-03
+111,Rina Utami,628990000111,lansia,,2026-06-04,2026-06-04
+112,Andri Wijaya,628990000112,ibu-ibu,,2025-11-05,2025-11-05
+113,Eko Hartono,628990000113,ibu-ibu,,2026-01-14,2026-01-14
+114,Budi Budiman,628990000114,lansia,,2026-08-18,2026-08-18
+115,Wati Saputra,628990000115,ibu-ibu,,2026-04-01,2026-04-01
+116,Indah Kusuma,628990000116,menengah_atas,,2026-02-12,2026-02-12
+117,Dian Susanto,628990000117,menengah_atas,,2026-03-14,2026-03-14
+118,Dewi Permata,628990000118,menengah_atas,Dikenalkan teman member,2026-06-09,2026-06-09
+119,Agnes Lestari,628990000119,ibu-ibu,,2025-12-01,2025-12-01
+120,Hendra Budiman,628990000120,lansia,,2026-04-17,2026-04-17
+121,Endang Rahayu,628990000121,lansia,,2026-07-11,2026-07-11
+122,Vera Lestari,628990000122,lansia,,2026-03-25,2026-03-25
+123,Endang Pratama,628990000123,ibu-ibu,Pernah cedera lutut ringan (sudah sembuh),2026-02-08,2026-02-08
+124,Hendra Tanujaya,628990000124,ibu-ibu,,2025-10-23,2025-10-23
+125,Lina Rahayu,628990000125,ibu-ibu,,2025-11-29,2025-11-29
+126,Agus Lestari,628990000126,lansia,Pernah cedera lutut ringan (sudah sembuh),2026-08-06,2026-08-06
+127,Eko Rahayu,628990000127,ibu-ibu,Pernah cedera lutut ringan (sudah sembuh),2026-03-14,2026-03-14
+128,Eko Putri,628990000128,ibu-ibu,Lebih suka kelas pagi,2025-12-18,2025-12-18
+129,Agnes Wijaya,628990000129,ibu-ibu,,2026-01-29,2026-01-29
+130,Wati Wibowo,628990000130,lansia,,2026-03-27,2026-03-27
+131,Rudi Budiman,628990000131,ibu-ibu,,2026-03-12,2026-03-12
+132,Joko Gunawan,628990000132,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2026-05-10,2026-05-10
+133,Susan Pratama,628990000133,lansia,,2025-12-02,2025-12-02
+134,Rudi Santoso,628990000134,ibu-ibu,,2026-04-22,2026-04-22
+135,Linda Handayani,628990000135,lansia,,2026-02-06,2026-02-06
+136,Retno Wijaya,628990000136,ibu-ibu,,2026-08-04,2026-08-04
+137,Wulan Putri,628990000137,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2025-10-27,2025-10-27
+138,Sari Halim,628990000138,lansia,Dikenalkan teman member,2025-10-24,2025-10-24
+139,Anita Santoso,628990000139,menengah_atas,,2026-02-13,2026-02-13
+140,Maria Tanujaya,628990000140,ibu-ibu,,2026-03-02,2026-03-02
+141,Wulan Halim,628990000141,lansia,,2026-05-07,2026-05-07
+142,Wulan Pratama,628990000142,lansia,,2026-01-24,2026-01-24
+143,Aminah Putri,628990000143,menengah_atas,,2026-07-26,2026-07-26
+144,Rudi Salim,628990000144,lansia,,2026-02-18,2026-02-18
+145,Budi Santoso,628990000145,lansia,,2025-10-17,2025-10-17
+146,Linda Permata,628990000146,ibu-ibu,,2025-10-13,2025-10-13
+147,Linda Susanto,628990000147,ibu-ibu,,2026-08-16,2026-08-16
+148,Susan Susanto,628990000148,lansia,,2025-10-19,2025-10-19
+149,Agnes Santoso,628990000149,ibu-ibu,Pernah cedera lutut ringan (sudah sembuh),2026-08-07,2026-08-07
+150,Rudi Saputra,628990000150,ibu-ibu,,2025-12-09,2025-12-09
+151,Rina Halim,628990000151,menengah_atas,,2025-10-04,2025-10-04
+152,Nur Tanujaya,628990000152,menengah_atas,Lebih suka kelas pagi,2025-12-19,2025-12-19
+153,Rudi Saputra,628990000153,ibu-ibu,,2026-04-09,2026-04-09
+154,Sri Handayani,628990000154,lansia,,2026-02-01,2026-02-01
+155,Dian Gunawan,628990000155,ibu-ibu,Lebih suka kelas pagi,2026-06-10,2026-06-10
+156,Rudi Rahayu,628990000156,lansia,Pernah cedera lutut ringan (sudah sembuh),2026-04-08,2026-04-08
+157,Agus Tanujaya,628990000157,ibu-ibu,,2026-01-22,2026-01-22
+158,Tuti Pratama,628990000158,lansia,,2026-04-16,2026-04-16
+159,Tuti Permata,628990000159,menengah_atas,,2026-08-15,2026-08-15
+160,Retno Lestari,628990000160,menengah_atas,,2026-01-26,2026-01-26
+161,Budi Setiawan,628990000161,ibu-ibu,,2025-10-26,2025-10-26
+162,Endang Rahayu,628990000162,menengah_atas,,2026-01-25,2026-01-25
+163,Anita Handayani,628990000163,ibu-ibu,Lebih suka kelas pagi,2026-06-29,2026-06-29
+164,Agnes Saputra,628990000164,ibu-ibu,,2025-11-18,2025-11-18
+165,Retno Permata,628990000165,lansia,,2026-08-07,2026-08-07
+166,Retno Susanto,628990000166,ibu-ibu,Lebih suka kelas pagi,2026-03-31,2026-03-31
+167,Anita Permata,628990000167,menengah_atas,Lebih suka kelas pagi,2026-04-04,2026-04-04
+168,Lina Wibowo,628990000168,menengah_atas,,2025-12-23,2025-12-23
+169,Maria Rahayu,628990000169,ibu-ibu,,2026-07-28,2026-07-28
+170,Endang Rahayu,628990000170,menengah_atas,,2025-09-13,2025-09-13
+171,Susan Handayani,628990000171,ibu-ibu,,2025-12-17,2025-12-17
+172,Nur Gunawan,628990000172,lansia,,2026-01-29,2026-01-29
+173,Sri Putri,628990000173,ibu-ibu,Lebih suka kelas pagi,2026-02-19,2026-02-19
+174,Retno Rahayu,628990000174,menengah_atas,Dikenalkan teman member,2026-02-18,2026-02-18
+175,Susan Susanto,628990000175,ibu-ibu,Lebih suka kelas pagi,2025-10-24,2025-10-24
+176,Susan Putri,628990000176,ibu-ibu,,2025-11-20,2025-11-20
+177,Linda Putri,628990000177,ibu-ibu,Lebih suka kelas pagi,2025-10-05,2025-10-05
+178,Vera Susanto,628990000178,menengah_atas,Dikenalkan teman member,2026-03-25,2026-03-25
+179,Eko Wijaya,628990000179,menengah_atas,,2026-01-04,2026-01-04
+180,Wati Wibowo,628990000180,menengah_atas,,2026-03-23,2026-03-23
+181,Fitri Rahayu,628990000181,menengah_atas,,2026-03-31,2026-03-31
+182,Rudi Wibowo,628990000182,menengah_atas,,2026-05-11,2026-05-11
+183,Yuni Rahayu,628990000183,lansia,,2026-03-16,2026-03-16
+184,Linda Lestari,628990000184,ibu-ibu,,2026-04-21,2026-04-21
+185,Indah Pratama,628990000185,menengah_atas,,2026-03-30,2026-03-30
+186,Tuti Setiawan,628990000186,lansia,Dikenalkan teman member,2026-04-23,2026-04-23
+187,Dewi Rahayu,628990000187,ibu-ibu,Lebih suka kelas pagi,2026-04-10,2026-04-10
+188,Budi Lestari,628990000188,ibu-ibu,,2025-12-23,2025-12-23
+189,Dewi Kusuma,628990000189,menengah_atas,,2025-11-28,2025-11-28
+190,Budi Putri,628990000190,ibu-ibu,Dikenalkan teman member,2026-06-10,2026-06-10
+191,Anita Susanto,628990000191,menengah_atas,,2026-01-02,2026-01-02
+192,Yuni Halim,628990000192,ibu-ibu,,2026-03-17,2026-03-17
+193,Ayu Saputra,628990000193,ibu-ibu,,2025-11-10,2025-11-10
+194,Hendra Rahayu,628990000194,menengah_atas,Dikenalkan teman member,2026-02-02,2026-02-02
+195,Eko Santoso,628990000195,ibu-ibu,,2026-03-10,2026-03-10
+196,Hendra Pratama,628990000196,ibu-ibu,,2026-04-13,2026-04-13
+197,Hendra Handayani,628990000197,lansia,,2026-03-08,2026-03-08
+198,Budi Hartono,628990000198,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2026-01-08,2026-01-08
+199,Budi Permata,628990000199,ibu-ibu,,2026-08-12,2026-08-12
+200,Rina Utami,628990000200,ibu-ibu,,2026-03-04,2026-03-04
+201,Fitri Rahayu,628990000201,menengah_atas,,2026-06-18,2026-06-18
+202,Agnes Handayani,628990000202,menengah_atas,,2026-05-23,2026-05-23
+203,Nur Hartono,628990000203,lansia,Dikenalkan teman member,2026-03-20,2026-03-20
+204,Budi Santoso,628990000204,ibu-ibu,,2026-07-16,2026-07-16
+205,Dian Pratama,628990000205,ibu-ibu,,2025-10-17,2025-10-17
+206,Bambang Handayani,628990000206,ibu-ibu,,2026-07-28,2026-07-28
+207,Lina Putri,628990000207,ibu-ibu,,2026-07-03,2026-07-03
+208,Linda Budiman,628990000208,lansia,Lebih suka kelas pagi,2026-02-28,2026-02-28
+209,Joko Hartono,628990000209,ibu-ibu,,2026-05-22,2026-05-22
+210,Sri Gunawan,628990000210,lansia,,2026-03-06,2026-03-06
+211,Joko Wijaya,628990000211,lansia,Pernah cedera lutut ringan (sudah sembuh),2025-12-06,2025-12-06
+212,Vera Permata,628990000212,lansia,,2026-06-15,2026-06-15
+213,Wulan Halim,628990000213,ibu-ibu,,2025-11-28,2025-11-28
+214,Endang Rahayu,628990000214,menengah_atas,,2025-12-22,2025-12-22
+215,Rudi Wibowo,628990000215,menengah_atas,,2026-03-06,2026-03-06
+216,Rina Lestari,628990000216,menengah_atas,,2026-06-28,2026-06-28
+217,Tuti Kusuma,628990000217,ibu-ibu,,2026-01-16,2026-01-16
+218,Lina Putri,628990000218,ibu-ibu,,2026-02-25,2026-02-25
+219,Sari Lestari,628990000219,menengah_atas,,2025-09-15,2025-09-15
+220,Wati Utami,628990000220,ibu-ibu,,2025-10-12,2025-10-12
+221,Dewi Handayani,628990000221,ibu-ibu,,2025-09-21,2025-09-21
+222,Lestari Susanto,628990000222,lansia,,2025-09-26,2025-09-26
+223,Tuti Setiawan,628990000223,lansia,,2026-07-09,2026-07-09
+224,Linda Wibowo,628990000224,menengah_atas,,2026-06-30,2026-06-30
+225,Fitri Gunawan,628990000225,ibu-ibu,,2026-06-23,2026-06-23
+226,Fitri Utami,628990000226,menengah_atas,Lebih suka kelas pagi,2025-09-20,2025-09-20
+227,Joko Setiawan,628990000227,ibu-ibu,Lebih suka kelas pagi,2025-09-28,2025-09-28
+228,Budi Handayani,628990000228,lansia,,2025-12-10,2025-12-10
+229,Wati Lestari,628990000229,lansia,Dikenalkan teman member,2026-03-22,2026-03-22
+230,Tuti Budiman,628990000230,ibu-ibu,,2025-12-29,2025-12-29
+231,Ratna Gunawan,628990000231,ibu-ibu,,2026-02-23,2026-02-23
+232,Hendra Rahayu,628990000232,ibu-ibu,,2025-11-02,2025-11-02
+233,Endang Kusuma,628990000233,menengah_atas,Dikenalkan teman member,2026-05-21,2026-05-21
+234,Tuti Salim,628990000234,lansia,,2025-12-22,2025-12-22
+235,Ratna Hartono,628990000235,menengah_atas,Lebih suka kelas pagi,2025-09-24,2025-09-24
+236,Aminah Permata,628990000236,menengah_atas,,2026-05-25,2026-05-25
+237,Aminah Rahayu,628990000237,lansia,,2026-07-22,2026-07-22
+238,Linda Tanujaya,628990000238,menengah_atas,Dikenalkan teman member,2025-09-06,2025-09-06
+239,Anita Pratama,628990000239,ibu-ibu,Pernah cedera lutut ringan (sudah sembuh),2026-02-04,2026-02-04
+240,Rudi Setiawan,628990000240,ibu-ibu,,2026-06-24,2026-06-24
+241,Fitri Halim,628990000241,menengah_atas,,2026-05-12,2026-05-12
+242,Lestari Permata,628990000242,menengah_atas,,2026-07-05,2026-07-05
+243,Dian Hartono,628990000243,ibu-ibu,,2026-01-28,2026-01-28
+244,Fitri Saputra,628990000244,lansia,,2026-01-12,2026-01-12
+245,Ratna Susanto,628990000245,lansia,,2026-05-13,2026-05-13
+246,Wati Tanujaya,628990000246,menengah_atas,,2025-10-26,2025-10-26
+247,Vera Handayani,628990000247,lansia,,2025-11-25,2025-11-25
+248,Agnes Budiman,628990000248,ibu-ibu,Lebih suka kelas pagi,2026-04-04,2026-04-04
+249,Linda Saputra,628990000249,ibu-ibu,Dikenalkan teman member,2026-04-28,2026-04-28
+250,Maria Santoso,628990000250,ibu-ibu,,2025-10-13,2025-10-13
+251,Fitri Tanujaya,628990000251,lansia,,2026-03-02,2026-03-02
+252,Siti Putri,628990000252,menengah_atas,Dikenalkan teman member,2026-01-10,2026-01-10
+253,Dewi Wibowo,628990000253,lansia,,2026-02-28,2026-02-28
+254,Yuni Lestari,628990000254,ibu-ibu,,2026-08-11,2026-08-11
+255,Agus Gunawan,628990000255,ibu-ibu,,2025-09-28,2025-09-28
+256,Joko Susanto,628990000256,menengah_atas,,2026-08-24,2026-08-24
+257,Sri Tanujaya,628990000257,menengah_atas,,2026-02-09,2026-02-09
+258,Wati Hartono,628990000258,ibu-ibu,,2026-06-05,2026-06-05
+259,Sari Hartono,628990000259,ibu-ibu,,2026-01-31,2026-01-31
+260,Sri Setiawan,628990000260,lansia,,2025-12-21,2025-12-21
+261,Ayu Setiawan,628990000261,ibu-ibu,,2026-06-04,2026-06-04
+262,Agnes Tanujaya,628990000262,menengah_atas,,2026-05-05,2026-05-05
+263,Tono Halim,628990000263,ibu-ibu,,2025-10-22,2025-10-22
+264,Lestari Susanto,628990000264,ibu-ibu,Dikenalkan teman member,2026-05-12,2026-05-12
+265,Eko Setiawan,628990000265,menengah_atas,,2026-05-29,2026-05-29
+266,Nur Utami,628990000266,ibu-ibu,,2026-01-18,2026-01-18
+267,Tuti Pratama,628990000267,ibu-ibu,Dikenalkan teman member,2026-07-30,2026-07-30
+268,Hendra Tanujaya,628990000268,ibu-ibu,,2026-04-19,2026-04-19
+269,Andri Handayani,628990000269,ibu-ibu,,2025-12-29,2025-12-29
+270,Sari Susanto,628990000270,ibu-ibu,Pernah cedera lutut ringan (sudah sembuh),2025-09-04,2025-09-04
+271,Sari Wijaya,628990000271,ibu-ibu,,2026-05-01,2026-05-01
+272,Mega Budiman,628990000272,ibu-ibu,,2025-11-15,2025-11-15
+273,Agus Wijaya,628990000273,ibu-ibu,,2026-05-30,2026-05-30
+274,Joko Wibowo,628990000274,lansia,,2026-03-08,2026-03-08
+275,Wulan Permata,628990000275,lansia,Dikenalkan teman member,2026-02-15,2026-02-15
+276,Agus Halim,628990000276,ibu-ibu,,2025-10-29,2025-10-29
+277,Lestari Pratama,628990000277,ibu-ibu,,2026-05-14,2026-05-14
+278,Endang Handayani,628990000278,lansia,,2025-10-30,2025-10-30
+279,Hendra Handayani,628990000279,menengah_atas,,2026-01-28,2026-01-28
+280,Retno Budiman,628990000280,menengah_atas,,2026-06-28,2026-06-28
+281,Rina Wibowo,628990000281,ibu-ibu,,2026-07-28,2026-07-28
+282,Dian Handayani,628990000282,ibu-ibu,Lebih suka kelas pagi,2026-08-22,2026-08-22
+283,Wati Santoso,628990000283,ibu-ibu,,2026-08-10,2026-08-10
+284,Hendra Wibowo,628990000284,ibu-ibu,,2026-03-19,2026-03-19
+285,Agnes Hartono,628990000285,lansia,Lebih suka kelas pagi,2025-11-11,2025-11-11
+286,Budi Handayani,628990000286,ibu-ibu,,2026-06-29,2026-06-29
+287,Agnes Salim,628990000287,ibu-ibu,Dikenalkan teman member,2026-06-15,2026-06-15
+288,Joko Kusuma,628990000288,ibu-ibu,,2026-08-22,2026-08-22
+289,Dewi Wibowo,628990000289,lansia,Lebih suka kelas pagi,2026-04-22,2026-04-22
+290,Joko Wijaya,628990000290,ibu-ibu,,2025-10-21,2025-10-21
+291,Dewi Tanujaya,628990000291,menengah_atas,,2026-02-28,2026-02-28
+292,Fitri Kusuma,628990000292,ibu-ibu,Dikenalkan teman member,2026-02-08,2026-02-08
+293,Endang Handayani,628990000293,menengah_atas,,2026-06-30,2026-06-30
+294,Tuti Salim,628990000294,ibu-ibu,Lebih suka kelas pagi,2026-01-19,2026-01-19
+295,Andri Halim,628990000295,menengah_atas,,2025-12-27,2025-12-27
+296,Retno Susanto,628990000296,menengah_atas,,2025-09-29,2025-09-29
+297,Ratna Santoso,628990000297,menengah_atas,Dikenalkan teman member,2026-06-27,2026-06-27
+298,Endang Kusuma,628990000298,menengah_atas,,2026-05-30,2026-05-30
+299,Fitri Utami,628990000299,menengah_atas,,2025-09-15,2025-09-15
+300,Hendra Gunawan,628990000300,lansia,Pernah cedera lutut ringan (sudah sembuh),2026-02-03,2026-02-03
+301,Hendra Wijaya,628990000301,menengah_atas,Dikenalkan teman member,2026-02-20,2026-02-20
+302,Budi Wibowo,628990000302,ibu-ibu,,2026-02-16,2026-02-16
+303,Vera Kusuma,628990000303,lansia,,2026-07-27,2026-07-27
+304,Bambang Budiman,628990000304,lansia,Pernah cedera lutut ringan (sudah sembuh),2025-10-25,2025-10-25
+305,Susan Susanto,628990000305,menengah_atas,Dikenalkan teman member,2025-12-19,2025-12-19
+306,Sari Handayani,628990000306,lansia,,2025-11-04,2025-11-04
+307,Wati Hartono,628990000307,ibu-ibu,,2025-11-27,2025-11-27
+308,Maria Handayani,628990000308,lansia,,2026-07-23,2026-07-23
+309,Aminah Setiawan,628990000309,ibu-ibu,Lebih suka kelas pagi,2026-08-04,2026-08-04
+310,Tuti Wibowo,628990000310,ibu-ibu,,2025-09-17,2025-09-17
+311,Eko Salim,628990000311,lansia,,2026-04-15,2026-04-15
+312,Anita Wijaya,628990000312,ibu-ibu,,2025-11-23,2025-11-23
+313,Siti Salim,628990000313,ibu-ibu,,2025-11-09,2025-11-09
+314,Retno Salim,628990000314,ibu-ibu,,2025-12-14,2025-12-14
+315,Maria Kusuma,628990000315,ibu-ibu,,2025-11-09,2025-11-09
+316,Eko Santoso,628990000316,ibu-ibu,,2026-02-23,2026-02-23
+317,Endang Rahayu,628990000317,ibu-ibu,,2026-08-24,2026-08-24
+318,Sri Putri,628990000318,lansia,,2026-03-30,2026-03-30
+319,Agnes Kusuma,628990000319,ibu-ibu,,2026-05-18,2026-05-18
+320,Ratna Santoso,628990000320,menengah_atas,,2026-02-25,2026-02-25
+321,Retno Tanujaya,628990000321,menengah_atas,Lebih suka kelas pagi,2025-09-05,2025-09-05
+322,Wulan Rahayu,628990000322,lansia,,2025-10-01,2025-10-01
+323,Budi Budiman,628990000323,ibu-ibu,,2025-12-06,2025-12-06
+324,Linda Hartono,628990000324,lansia,,2025-11-27,2025-11-27
+325,Linda Halim,628990000325,menengah_atas,,2026-06-29,2026-06-29
+326,Bambang Santoso,628990000326,lansia,,2026-06-30,2026-06-30
+327,Wulan Gunawan,628990000327,menengah_atas,,2026-07-04,2026-07-04
+328,Ayu Pratama,628990000328,lansia,,2026-04-17,2026-04-17
+329,Wati Susanto,628990000329,lansia,,2026-03-19,2026-03-19
+330,Ayu Susanto,628990000330,ibu-ibu,,2026-04-22,2026-04-22
+331,Maria Budiman,628990000331,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2026-01-25,2026-01-25
+332,Mega Saputra,628990000332,ibu-ibu,,2026-04-29,2026-04-29
+333,Retno Santoso,628990000333,lansia,Lebih suka kelas pagi,2026-06-13,2026-06-13
+334,Wulan Wibowo,628990000334,menengah_atas,Dikenalkan teman member,2026-06-01,2026-06-01
+335,Maria Santoso,628990000335,ibu-ibu,,2026-04-09,2026-04-09
+336,Agnes Salim,628990000336,lansia,Lebih suka kelas pagi,2025-09-21,2025-09-21
+337,Susan Gunawan,628990000337,ibu-ibu,,2026-05-19,2026-05-19
+338,Fitri Gunawan,628990000338,menengah_atas,Lebih suka kelas pagi,2026-01-10,2026-01-10
+339,Wati Utami,628990000339,ibu-ibu,,2026-05-25,2026-05-25
+340,Rudi Rahayu,628990000340,menengah_atas,Dikenalkan teman member,2026-03-13,2026-03-13
+341,Fitri Permata,628990000341,ibu-ibu,,2026-07-14,2026-07-14
+342,Rina Utami,628990000342,menengah_atas,,2025-12-31,2025-12-31
+343,Hendra Budiman,628990000343,menengah_atas,,2026-08-01,2026-08-01
+344,Fitri Handayani,628990000344,lansia,,2026-07-01,2026-07-01
+345,Sari Wibowo,628990000345,menengah_atas,,2025-12-28,2025-12-28
+346,Lestari Budiman,628990000346,menengah_atas,,2026-02-21,2026-02-21
+347,Ratna Tanujaya,628990000347,menengah_atas,,2026-03-10,2026-03-10
+348,Sri Pratama,628990000348,ibu-ibu,,2026-06-03,2026-06-03
+349,Nur Pratama,628990000349,lansia,,2026-05-06,2026-05-06
+350,Dewi Permata,628990000350,ibu-ibu,,2026-07-03,2026-07-03
+351,Tuti Hartono,628990000351,lansia,,2026-01-11,2026-01-11
+352,Hendra Tanujaya,628990000352,ibu-ibu,Dikenalkan teman member,2026-03-01,2026-03-01
+353,Siti Hartono,628990000353,lansia,Lebih suka kelas pagi,2026-02-02,2026-02-02
+354,Wati Tanujaya,628990000354,lansia,,2026-07-24,2026-07-24
+355,Siti Putri,628990000355,lansia,Lebih suka kelas pagi,2025-12-19,2025-12-19
+356,Hendra Saputra,628990000356,lansia,,2026-03-30,2026-03-30
+357,Andri Putri,628990000357,menengah_atas,,2025-10-14,2025-10-14
+358,Agnes Wibowo,628990000358,menengah_atas,,2026-07-03,2026-07-03
+359,Nur Rahayu,628990000359,lansia,,2026-01-16,2026-01-16
+360,Siti Kusuma,628990000360,lansia,Lebih suka kelas pagi,2026-01-01,2026-01-01
+361,Rina Setiawan,628990000361,menengah_atas,,2026-03-29,2026-03-29
+362,Lestari Permata,628990000362,ibu-ibu,,2026-02-27,2026-02-27
+363,Fitri Lestari,628990000363,ibu-ibu,,2026-07-02,2026-07-02
+364,Yuni Budiman,628990000364,ibu-ibu,Lebih suka kelas pagi,2026-03-10,2026-03-10
+365,Lestari Hartono,628990000365,lansia,,2026-03-05,2026-03-05
+366,Dian Susanto,628990000366,ibu-ibu,,2025-10-08,2025-10-08
+367,Retno Gunawan,628990000367,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2025-09-08,2025-09-08
+368,Rudi Santoso,628990000368,lansia,,2026-01-22,2026-01-22
+369,Vera Permata,628990000369,ibu-ibu,Dikenalkan teman member,2026-08-25,2026-08-25
+370,Rudi Budiman,628990000370,menengah_atas,,2026-07-27,2026-07-27
+371,Rina Wijaya,628990000371,menengah_atas,,2026-04-14,2026-04-14
+372,Dewi Pratama,628990000372,ibu-ibu,Dikenalkan teman member,2026-04-15,2026-04-15
+373,Tuti Saputra,628990000373,ibu-ibu,,2026-01-19,2026-01-19
+374,Joko Putri,628990000374,ibu-ibu,,2025-11-03,2025-11-03
+375,Tono Putri,628990000375,ibu-ibu,,2025-09-04,2025-09-04
+376,Rudi Budiman,628990000376,ibu-ibu,,2025-12-31,2025-12-31
+377,Susan Pratama,628990000377,menengah_atas,,2025-12-23,2025-12-23
+378,Wati Hartono,628990000378,ibu-ibu,,2025-11-08,2025-11-08
+379,Rudi Hartono,628990000379,ibu-ibu,,2025-12-03,2025-12-03
+380,Susan Lestari,628990000380,menengah_atas,,2025-09-09,2025-09-09
+381,Anita Handayani,628990000381,lansia,,2026-04-07,2026-04-07
+382,Retno Handayani,628990000382,menengah_atas,,2026-07-30,2026-07-30
+383,Hendra Saputra,628990000383,menengah_atas,,2026-05-06,2026-05-06
+384,Retno Santoso,628990000384,lansia,,2026-02-08,2026-02-08
+385,Anita Setiawan,628990000385,ibu-ibu,,2026-01-29,2026-01-29
+386,Nur Gunawan,628990000386,menengah_atas,,2025-12-20,2025-12-20
+387,Maria Pratama,628990000387,menengah_atas,,2025-10-22,2025-10-22
+388,Tono Wijaya,628990000388,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2026-04-03,2026-04-03
+389,Ratna Saputra,628990000389,ibu-ibu,,2026-03-23,2026-03-23
+390,Rina Santoso,628990000390,menengah_atas,,2025-09-03,2025-09-03
+391,Linda Lestari,628990000391,lansia,,2026-01-28,2026-01-28
+392,Andri Budiman,628990000392,ibu-ibu,,2025-12-09,2025-12-09
+393,Mega Pratama,628990000393,lansia,,2025-11-01,2025-11-01
+394,Wati Kusuma,628990000394,lansia,Pernah cedera lutut ringan (sudah sembuh),2026-05-11,2026-05-11
+395,Tono Permata,628990000395,ibu-ibu,,2026-03-08,2026-03-08
+396,Aminah Rahayu,628990000396,lansia,Dikenalkan teman member,2026-04-16,2026-04-16
+397,Hendra Wijaya,628990000397,menengah_atas,Pernah cedera lutut ringan (sudah sembuh),2026-05-15,2026-05-15
+398,Lestari Tanujaya,628990000398,ibu-ibu,Dikenalkan teman member,2026-08-19,2026-08-19
+399,Yuni Wibowo,628990000399,lansia,Lebih suka kelas pagi,2026-06-16,2026-06-16
+400,Agus Saputra,628990000400,ibu-ibu,,2026-04-11,2026-04-11

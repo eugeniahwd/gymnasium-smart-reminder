@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Notebook / IDE
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# CATATAN: data/raw, data/processed, dan src/ml/artifacts SENGAJA tidak di-ignore.
+# CSV synthetic dibutuhkan untuk reproduksi dan artefak model (.joblib) dibutuhkan saat deploy.
