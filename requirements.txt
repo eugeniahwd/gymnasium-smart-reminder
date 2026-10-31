@@ -1,0 +1,30 @@
+# ============================================================
+# Gymnasium Smart Reminder & Follow-up — Requirements
+# ============================================================
+
+# --- Data & ML ---
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+jupyter
+joblib
+
+# --- Backend ---
+fastapi
+uvicorn[standard]
+pydantic
+sqlalchemy
+psycopg2-binary
+python-dotenv
+
+# --- Frontend ---
+streamlit
+requests
+
+# --- Generative AI ---
+google-genai
+
+# --- Testing ---
+pytest
