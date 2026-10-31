@@ -50,6 +50,14 @@ def _chunksize(dialect: str, n_cols: int) -> int:
     return max(1, PARAM_BUDGET.get(dialect, 900) // n_cols)
 
 
+def normalize_db_url(url: str) -> str:
+    """Paksa driver psycopg2 untuk URL PostgreSQL (SQLAlchemy 2.1 default-nya psycopg v3)."""
+    for prefix in ("postgres://", "postgresql://"):
+        if url.startswith(prefix):
+            return "postgresql+psycopg2://" + url[len(prefix):]
+    return url
+
+
 def load_csvs(raw_dir: Path = RAW_DIR) -> dict[str, pd.DataFrame]:
     frames = {}
     for name, dt_cols in TABLES:
@@ -139,9 +147,7 @@ def main() -> None:
     url = os.getenv("DATABASE_URL")
     if not url:
         raise SystemExit("DATABASE_URL belum diset. Isi di file .env (lihat .env.example).")
-    if url.startswith("postgres://"):
-        url = url.replace("postgres://", "postgresql://", 1)
-    engine = create_engine(url)
+    engine = create_engine(normalize_db_url(url))
     counts = seed(engine, frames, reset=args.reset)
     print("Seed selesai:", counts)
 
