@@ -1,0 +1,2 @@
+fase3-v2 : seed_demo tahan koneksi putus (retry + transaksi tunggal), keepalive TCP, GET / -> /docs.
+Jika file ini ada di root proyek DAN `python -m pytest tests -q` menampilkan "83 passed", paket v2 terpasang benar.
