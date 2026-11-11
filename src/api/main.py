@@ -17,6 +17,7 @@ from src.api.config import Settings, get_settings
 from src.api.db.session import make_engine, make_session_factory
 from src.api.errors import register_error_handlers
 from src.api.routers import customers, drafts, health, predict, reminders, schedules
+from src.api.services.gemini_client import build_draft_generator
 from src.ml import predict as ml_predict
 
 logger = logging.getLogger("gymnasium.api")
@@ -28,7 +29,7 @@ TAGS = [
     {"name": "Jadwal / Kelas", "description": "CRUD jadwal kelas group dan private."},
     {"name": "Reminder", "description": "Reminder, alur status, dan riwayat."},
     {"name": "Prediksi AI", "description": "Prioritas follow-up dari model machine learning."},
-    {"name": "Generative AI", "description": "Draft pesan (Fase 4)."},
+    {"name": "Generative AI", "description": "Draft pesan WhatsApp dari Gemini, dengan template cadangan."},
 ]
 DESCRIPTION = (
     "Backend admin Gymnasium Smart Reminder & Follow-up.\n\n"
@@ -49,8 +50,8 @@ def _load_model_safely():
     return None
 
 
-def create_app(settings: Settings | None = None, engine=None, model=_AUTO) -> FastAPI:
-    """Factory aplikasi. `engine` dan `model` bisa disuntik (dipakai tes)."""
+def create_app(settings: Settings | None = None, engine=None, model=_AUTO, draft_generator=_AUTO) -> FastAPI:
+    """Factory aplikasi. `engine`, `model`, dan `draft_generator` bisa disuntik (dipakai tes)."""
     settings = settings or get_settings()
     logging.basicConfig(level=settings.log_level, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 
@@ -68,11 +69,13 @@ def create_app(settings: Settings | None = None, engine=None, model=_AUTO) -> Fa
         if engine is not None:
             engine.dispose()
 
-    app = FastAPI(title="Gymnasium Smart Reminder & Follow-up API", version="0.3.0",
+    app = FastAPI(title="Gymnasium Smart Reminder & Follow-up API", version="0.4.0",
                   description=DESCRIPTION, openapi_tags=TAGS, lifespan=lifespan)
     app.state.engine = engine
     app.state.session_factory = make_session_factory(engine) if engine is not None else None
     app.state.model = None if model is _AUTO else model
+    # Klien Gemini dibuat malas (tanpa panggilan jaringan saat startup); None jika GEMINI_API_KEY kosong.
+    app.state.draft_generator = build_draft_generator(settings) if draft_generator is _AUTO else draft_generator
 
     app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["*"], allow_headers=["*"])
     register_error_handlers(app)

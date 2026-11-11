@@ -400,10 +400,11 @@ def test_refresh_priority_updates_reminder(client):
     assert client.post("/reminders/9999/refresh-priority").status_code == 404
 
 
-# ------------------------------------------------------------------ placeholder & DB tidak tersedia
-def test_generate_draft_placeholder_501(client):
+# ------------------------------------------------------------------ generate-draft (Fase 4) & DB tidak tersedia
+def test_generate_draft_unknown_reminder_404(client):
+    # Menggantikan tes placeholder 501 Fase 3; perilaku lengkap dites di tests/test_drafts.py
     r = client.post("/generate-draft", json={"reminder_id": 1})
-    assert r.status_code == 501 and r.json() == {"detail": "Akan diimplementasikan di Fase 4.", "code": "not_implemented"}
+    assert r.status_code == 404 and r.json() == {"detail": "Reminder dengan id 1 tidak ditemukan.", "code": "not_found"}
 
 
 def test_database_unavailable_returns_503(monkeypatch):

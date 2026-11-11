@@ -15,7 +15,8 @@ python -m pytest tests -q
 ```
 
 Konfigurasi lewat environment variable: `DATABASE_URL`, `CORS_ORIGINS` (pisahkan koma), `LOG_LEVEL`,
-`APP_TIMEZONE`, `GEMINI_API_KEY`/`GEMINI_MODEL` (Fase 4).
+`APP_TIMEZONE`, `GEMINI_API_KEY`, `GEMINI_MODEL` (kosong → default di `config.py`), serta opsional
+`GEMINI_TEMPERATURE` (0,7), `GEMINI_TIMEOUT_SECONDS` (20), `GEMINI_MAX_RETRIES` (2).
 
 ## Konvensi
 
@@ -42,7 +43,7 @@ Konfigurasi lewat environment variable: `DATABASE_URL`, `CORS_ORIGINS` (pisahkan
 | PATCH | `/reminders/{id}/message` | Simpan `final_message` (hanya saat `Scheduled`) |
 | POST | `/reminders/{id}/refresh-priority` | Hitung ulang prioritas dengan model ML |
 | POST | `/predict` | Prediksi prioritas satu customer, hasil disimpan di tabel `predictions` |
-| POST | `/generate-draft` | **Placeholder** (501) sampai Fase 4 |
+| POST | `/generate-draft` | Draft pesan WhatsApp (Gemini, dengan template cadangan); lihat bagian di bawah |
 
 Urutan `GET /reminders`: prioritas **High, Medium, Low, lalu tanpa prioritas**; pada prioritas sama, kelas yang
 paling dekat waktunya lebih dulu.
@@ -63,6 +64,25 @@ Aturan: hanya `Scheduled → Sent` dan `Sent → Responded | No Response`. Trans
 sama atau keluar dari status final) ditolak dengan **409** `invalid_status_transition`. `sent_at` dan
 `responded_at` terisi otomatis, setiap perubahan dicatat di `reminder_status_history`. Saat menjadi `Sent`,
 jika `final_message` kosong dan ada `draft_message`, draft disalin menjadi `final_message` (dikirim apa adanya).
+
+## Draft pesan: `POST /generate-draft`
+
+Request: `{"reminder_id": 12, "regenerate": false}`. Respons 200:
+
+```json
+{"reminder_id": 12, "draft_message": "Halo Bu Sari, ...", "draft_source": "gemini",
+ "cached": false, "message_type": "reminder_kelas", "warning": null}
+```
+
+- Hanya untuk reminder berstatus `Scheduled`; selain itu **409** `draft_not_allowed`. Reminder tidak ada → **404**.
+- Draft tersimpan + `regenerate=false` → draft tersimpan dikembalikan (`cached: true`) tanpa memanggil Gemini.
+- Gemini gagal (429/5xx/timeout, setelah retry terbatas), `GEMINI_API_KEY` kosong, atau draft tidak lolos
+  post-check setelah 1 regenerasi → tetap **200** dengan `draft_source: "template_fallback"` dan `warning`.
+- Draft disimpan ke `draft_message`/`draft_source`; `final_message` tidak pernah diubah oleh endpoint ini.
+  Admin menyimpan editan lewat `PATCH /reminders/{id}/message`, lalu mengirim manual lewat WhatsApp.
+- Detail prompt, post-check, dan fallback: `docs/PROMPT_ENGINEERING.md`.
+
+> Contoh di atas ilustrasi format. Respons nyata dari Gemini belum direkam karena pengujian memakai klien palsu.
 
 ## Contoh (respons nyata dari server lokal)
 
@@ -98,9 +118,9 @@ kejadian: `cold_start: true`, `note: "riwayat belum cukup"`, prioritas dibatasi 
 | 409 | `message_locked` | Pesan tidak bisa diubah setelah `Sent` |
 | 409 | `duplicate_whatsapp` | Nomor WhatsApp sudah terdaftar |
 | 409 | `duplicate_reminder` | Reminder aktif yang sama (customer + kelas + jenis pesan) sudah ada |
+| 409 | `draft_not_allowed` | Draft hanya bisa dibuat saat reminder berstatus `Scheduled` |
 | 422 | `validation_error` | Input tidak valid (pesan merinci field) |
 | 422 | `invalid_date` | Parameter `date` bukan `today` / `YYYY-MM-DD` |
-| 501 | `not_implemented` | `/generate-draft` (sampai Fase 4) |
 | 503 | `model_unavailable` | Artefak model tidak termuat; API tetap hidup |
 | 503 | `database_unavailable` | `DATABASE_URL` kosong / database tidak terjangkau |
 | 500 | `internal_error` | Kesalahan tak terduga (detail hanya di log server) |
