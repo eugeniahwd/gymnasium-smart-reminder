@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from datetime import date
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from src.api.schemas.common import Priority
+from src.api.schemas.common import MessageType, Priority
 
 
 class PredictRequest(BaseModel):
@@ -29,3 +30,14 @@ class PredictResponse(BaseModel):
 class DraftRequest(BaseModel):
     reminder_id: int
     regenerate: bool = False
+
+    model_config = ConfigDict(json_schema_extra={"examples": [{"reminder_id": 1, "regenerate": False}]})
+
+
+class DraftResponse(BaseModel):
+    reminder_id: int
+    draft_message: str = Field(description="Draft pesan WhatsApp; admin tetap bisa mengedit sebelum mengirim")
+    draft_source: Literal["gemini", "template_fallback"]
+    cached: bool = Field(description="true = draft tersimpan dikembalikan tanpa memanggil Gemini")
+    message_type: MessageType
+    warning: str | None = Field(default=None, description="Penjelasan bila memakai template cadangan, dll.")

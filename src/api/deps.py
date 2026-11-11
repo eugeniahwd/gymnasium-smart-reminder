@@ -7,6 +7,7 @@ from fastapi import Request
 from sqlalchemy.orm import Session
 
 from src.api.errors import APIError
+from src.api.services.gemini_client import DraftGenerator
 from src.ml.predict import LoadedModel
 
 
@@ -23,3 +24,8 @@ def get_db(request: Request) -> Iterator[Session]:
 
 def get_model(request: Request) -> LoadedModel | None:
     return request.app.state.model
+
+
+def get_draft_generator(request: Request) -> DraftGenerator | None:
+    """Generator draft (GeminiClient asli, klien palsu di tes, atau None bila GEMINI_API_KEY kosong)."""
+    return request.app.state.draft_generator

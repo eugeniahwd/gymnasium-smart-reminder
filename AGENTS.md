@@ -2,6 +2,8 @@
 
 > **Dokumen ini mengikat untuk semua fase pengerjaan proyek.** Setiap agen/engineer yang bekerja pada repo ini wajib membaca dan mematuhi aturan di bawah.
 
+Di awal setiap sesi, baca docs/PROJECT_STATE.md. Perbarui bagian STATUS di dalamnya setiap akhir fase.
+
 ---
 
 ## 1. Ringkasan
