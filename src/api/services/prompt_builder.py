@@ -11,7 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date, datetime
 
-PROMPT_VERSION = "v1"
+PROMPT_VERSION = "v2"  # riwayat perubahan: docs/PROMPT_ENGINEERING.md bagian "Iterasi prompt"
 
 HARI = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
 BULAN = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
@@ -182,7 +182,8 @@ def format_data_block(ctx: DraftContext) -> str:
     else:
         lines.append("- Kelas: tidak ada data (jangan menyebut nama kelas, tanggal, jam, atau pelatih tertentu)")
     if ctx.tanggal_pesan_terakhir:
-        lines.append(f"- Pesan terakhir dari kami: {format_tanggal(ctx.tanggal_pesan_terakhir)}")
+        lines.append(f"- Pesan terakhir dari kami: {format_tanggal(ctx.tanggal_pesan_terakhir)} "
+                     "(konteks saja; JANGAN ditulis atau diungkit di pesan)")
     else:
         lines.append("- Pesan terakhir dari kami: tidak ada data (jangan disebut)")
     return "\n".join(lines)
@@ -211,10 +212,10 @@ FEW_SHOT_EXAMPLES: list[tuple[DraftContext, str]] = [
      "Kami senang bisa bertemu Bapak/Ibu lagi di kelas. Terima kasih. Salam hormat, Admin Gymnasium"),
     (DraftContext("Ibu Endang Lestiani", "lansia", "follow_up_tidak_merespons", _EX_NOW, "High", "Yoga Kursi",
                   "group_class", datetime(2026, 3, 4, 8, 30), "Coach Wina", datetime(2026, 3, 2, 9, 0)),
-     "Halo Ibu Endang, semoga Ibu sehat selalu. Kami mengirim pesan pada hari Senin, 2 Maret 2026, tentang kelas "
-     "Yoga Kursi. Kelas tersebut akan berlangsung besok, Rabu, 4 Maret 2026, pukul 08.30 WIB bersama Coach Wina. "
-     "Bila Ibu berkenan hadir, mohon balas pesan ini. Bila waktunya kurang cocok, kami bisa membantu mencari "
-     "jadwal lain. Semoga hari Ibu menyenangkan. Terima kasih, Ibu. Salam hormat, Admin Gymnasium"),
+     "Halo Ibu Endang, semoga Ibu dalam keadaan baik. Kami ingin mengingatkan kembali pesan kami sebelumnya "
+     "tentang kelas Yoga Kursi besok, Rabu, 4 Maret 2026, pukul 08.30 WIB bersama Coach Wina. Bila Ibu berkenan "
+     "hadir, mohon balas pesan ini. Bila waktunya kurang cocok, kami dengan senang hati membantu mencari jadwal "
+     "lain. Ibu boleh menghubungi kami kapan saja. Terima kasih, Ibu. Salam hormat, Admin Gymnasium"),
     (DraftContext("Ny. Vania Hadiwijaya", "menengah_atas", "reminder_kelas", _EX_NOW, "Low", "Private Coaching",
                   "private", datetime(2026, 3, 3, 18, 30), "Coach Tama"),
      "Halo Ibu Vania, kami ingin mengingatkan sesi Private Coaching hari ini, Selasa, 3 Maret 2026 pukul 18.30 "
@@ -224,8 +225,7 @@ FEW_SHOT_EXAMPLES: list[tuple[DraftContext, str]] = [
     (DraftContext("Santoso Wirawan", "menengah_atas", "follow_up_absen", _EX_NOW, "Medium", "Body Conditioning",
                   "group_class", datetime(2026, 3, 2, 19, 0), "Coach Wina"),
      "Halo Bapak/Ibu Santoso, semoga aktivitasnya lancar. Kami tidak melihat Bapak/Ibu di kelas Body "
-     "Conditioning kemarin, Senin, 2 Maret 2026 pukul 19.00 WIB. Semoga semuanya baik. Apakah ada kendala yang "
-     "bisa kami bantu? Bila jadwal tersebut kurang sesuai, silakan balas pesan ini dan kami akan membantu "
+     "Conditioning kemarin, Senin, 2 Maret 2026 pukul 19.00 WIB. Apakah ada kendala yang bisa kami bantu? Bila jadwal tersebut kurang sesuai, silakan balas pesan ini dan kami akan membantu "
      "mencari waktu yang lebih cocok. Kami senang bisa kembali menyambut Bapak/Ibu di kelas berikutnya. "
      "Terima kasih. Salam, Admin Gymnasium"),
 ]
@@ -246,11 +246,14 @@ ATURAN UMUM
 4. Sebut nama kelas, tanggal, jam, dan pelatih persis seperti di DATA PESAN. Kata "hari ini", "besok", atau "kemarin" hanya boleh dipakai jika tercantum di DATA PESAN.
 5. Akhiri dengan salam penutup "Salam hangat, Admin Gymnasium" (ibu-ibu), "Salam hormat, Admin Gymnasium" (lansia), atau "Salam, Admin Gymnasium" (menengah_atas).
 6. Tulis hanya isi pesan, tanpa pengantar, judul, atau penjelasan.
+7. Setiap kalimat harus lengkap dan punya subjek, misalnya "Kami ingin mengingatkan ...", bukan "Mengingatkan ...".
+8. Tanggal pesan terakhir hanya konteks: jangan menulis tanggalnya dan jangan mengungkit bahwa kami sudah atau pernah mengirim pesan. Untuk follow-up karena pesan belum dibalas, cukup tulis "pesan kami sebelumnya" tanpa tanggal.
+9. Jangan mengulang harapan atau doa yang sama (misalnya mendoakan sehat dua kali). Kata "semoga" paling banyak 2 kali.
 
 GAYA PER PERSONA
 - ibu-ibu: hangat dan akrab, sapaan "Bu"/"Ibu", emoji maksimal 2.
-- lansia: sangat sopan, kalimat pendek dan jelas, tanpa singkatan dan tanpa istilah asing, sebaiknya tanpa emoji (maksimal 1), tidak terkesan terburu-buru.
-- menengah_atas: profesional, ringkas, sopan, emoji maksimal 1.
+- lansia: sangat sopan, kalimat pendek dan jelas, tanpa singkatan, tanpa istilah asing, dan tanpa partikel santai (ya, kok, nih, dong, sih, deh), sebaiknya tanpa emoji (maksimal 1), tidak terkesan terburu-buru.
+- menengah_atas: profesional, ringkas, sopan, tanpa partikel santai (ya, kok, nih, dong, sih, deh), emoji maksimal 1.
 
 LARANGAN KERAS
 1. Jangan menyebut prioritas, kategori, risiko, skor, model, AI, analisis, prediksi, persentase, atau data internal apa pun.
@@ -258,7 +261,8 @@ LARANGAN KERAS
 3. Jangan mengarang fakta: jangan menyebut harga, promo, diskon, hadiah, jadwal, tanggal, jam, atau nama yang tidak ada di DATA PESAN. Jika suatu data tidak ada, jangan disebut.
 4. Jangan memberi klaim kesehatan atau medis (misalnya menyembuhkan penyakit atau menurunkan tekanan darah).
 5. Jangan memakai nada rasa bersalah atau urgensi palsu (misalnya "kesempatan terakhir", "jangan sampai rugi").
-6. Jangan menyebut kata "lansia", "persona", atau label kelompok customer lainnya."""
+6. Jangan menyebut kata "lansia", "persona", atau label kelompok customer lainnya.
+7. Jangan berasumsi customer sakit, sedang bermasalah, atau punya kendala serius, dan jangan menuntut balasan (misalnya "kami nantikan kabar baik dari Ibu")."""
 
 
 def build_system_instruction() -> str:

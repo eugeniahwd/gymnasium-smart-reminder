@@ -371,6 +371,69 @@ def test_post_check_detects_rule_violations(mutate, reason):
     assert any(reason in r for r in check_draft(mutate(text), ctx))
 
 
+# Output ASLI Gemini dari evaluasi prompt v1 (docs/draft_eval/draft_eval_v1_20261111_2048.md, data synthetic).
+V1_OUTPUTS = {
+    1: ("Halo Bu Sari, semoga sehat dan semangat selalu ya 😊 Kami ingin mengingatkan jadwal kelas Zumba Fun besok, "
+        "Kamis, 12 November 2026 pukul 09.00 WIB bersama Coach Dina. Kami tunggu kehadirannya di gym ya, Bu, semoga "
+        "latihannya nanti seru dan menyenangkan. Sampai ketemu di kelas! Salam hangat, Admin Gymnasium"),
+    6: ("Halo Bapak/Ibu Bambang, semoga sehat selalu. Kami mengirim pesan pada hari Senin, 9 November 2026. Kemarin, "
+        "pada Selasa, 10 November 2026 pukul 09.00 WIB, kami tidak melihat Bapak/Ibu di kelas Senam Sehat Lansia "
+        "bersama Coach Budi. Semoga Bapak/Ibu sekeluarga dalam keadaan sehat. Jika berkenan, kami siap membantu "
+        "mengatur jadwal pengganti yang lebih leluasa. Silakan membalas pesan ini kapan saja. Salam hormat, Admin "
+        "Gymnasium"),
+    8: ("Halo Ibu Linda, semoga Ibu sehat dan aktivitasnya menyenangkan. Kami ingin menindaklanjuti pesan kami "
+        "sebelumnya pada hari Senin, 9 November 2026. Mengingatkan kembali jadwal sesi Private Coaching besok, Kamis, "
+        "12 November 2026 pukul 09.00 WIB bersama Coach Andra. Bagaimana kabar Ibu, dan apakah ada kendala atau "
+        "perubahan jadwal yang perlu kami bantu sesuaikan? Mohon konfirmasinya ya, Bu. Salam, Admin Gymnasium"),
+    9: ("Halo Ibu Linda, semoga Ibu dan keluarga selalu sehat. Kami sempat mengirim pesan pada Senin, 9 November "
+        "2026. Kemarin kami tidak berjumpa dengan Ibu pada sesi Private Coaching pukul 09.00 WIB bersama Coach Andra. "
+        "Semoga tidak ada kendala serius yang Ibu hadapi. Jika Ibu ingin mengatur kembali jadwal latihan tersebut, "
+        "silakan beri tahu kami agar bisa kami bantu. Kami nantikan kabar baik dari Ibu. Salam, Admin Gymnasium"),
+}
+
+
+@pytest.mark.parametrize("no,expected", [
+    (1, []),
+    (6, ["mengungkit pesan", "'sehat' lebih dari 1x", "tanggal yang tidak ada"]),
+    (8, ["partikel santai", "tanggal yang tidak ada"]),
+    (9, ["mengungkit pesan", "berasumsi customer sakit", "tanggal yang tidak ada"]),
+])
+def test_v2_post_check_catches_problems_found_in_v1_evaluation(no, expected):
+    ctx = {sc.no: sc.ctx for sc in draft_eval.build_scenarios(datetime(2026, 11, 11, 20, 48))}[no]
+    reasons = check_draft(V1_OUTPUTS[no], ctx)
+    assert (reasons == []) if not expected else all(any(e in r for r in reasons) for e in expected), reasons
+
+
+@pytest.mark.parametrize("persona,phrase,reason", [
+    ("lansia", "Sampai jumpa ya.", "partikel santai"),
+    ("menengah_atas", "Tidak apa-apa kok.", "partikel santai"),
+    ("ibu-ibu", "Kami sudah mengirimkan pesan kemarin.", "mengungkit pesan"),
+    ("lansia", "Semoga lekas sembuh.", "berasumsi"),
+    ("menengah_atas", "Kami nantikan kabar baik dari Ibu.", "menuntut balasan"),
+    ("ibu-ibu", "Semoga sehat. Semoga senang. Semoga lancar.", "'semoga' 4x"),
+])
+def test_v2_post_check_rules(persona, phrase, reason):
+    ctx = _ctx(persona)
+    text = render_template(ctx).replace("Halo", f"{phrase} Halo", 1)
+    assert any(reason in r for r in check_draft(text, ctx)), check_draft(text, ctx)
+
+
+def test_v2_casual_particles_still_allowed_for_ibu_ibu():
+    ctx = _ctx("ibu-ibu")
+    text = render_template(ctx).replace("Halo", "Sampai ketemu ya. Halo", 1)
+    assert check_draft(text, ctx) == []
+
+
+def test_v2_last_message_date_is_context_only():
+    last = datetime(2026, 11, 6, 9, 0)
+    ctx = _ctx("ibu-ibu", "follow_up_tidak_merespons", tanggal_pesan_terakhir=last)
+    prompt = build_prompt(ctx)
+    assert "Pesan terakhir dari kami: Jumat, 6 November 2026 (konteks saja; JANGAN" in prompt
+    text = render_template(ctx).replace("Halo", "Pesan kami pada Jumat, 6 November 2026 belum dibalas. Halo", 1)
+    reasons = check_draft(text, ctx)
+    assert any("tanggal yang tidak ada" in r for r in reasons) and any("hari yang tidak ada" in r for r in reasons)
+
+
 def test_clean_output_strips_quotes_and_blank_lines():
     assert clean_output('  "Halo Bu Sari,\n\n\n\nsampai jumpa."  ') == "Halo Bu Sari,\n\nsampai jumpa."
     assert clean_output(None) == ""
@@ -519,11 +582,45 @@ def test_draft_eval_writes_nine_scenarios_with_rubric(tmp_path):
     assert {(r["scenario"].persona, r["scenario"].priority) for r in rows} == {
         (p, pr) for p in PERSONAS for pr in ("Low", "Medium", "High")}
     md = draft_eval.to_markdown(rows, "gemini-uji", 0.7, False, datetime(2026, 11, 9, 10, 0))
-    table = [line for line in md.splitlines() if line.startswith("| ") and line[2].isdigit()]
-    assert len(table) == 9 and all(line.count("|") == md.splitlines()[11].count("|") for line in table)
+    lines = md.splitlines()
+    sheet_at = lines.index(draft_eval.SHEET_HEADING)
+    results = [ln for ln in lines[:sheet_at] if ln.startswith("| ") and ln[2].isdigit()]
+    sheet = [ln for ln in lines[sheet_at:] if ln.startswith("| ") and ln[2].isdigit()]
+    assert len(results) == 9 and len(sheet) == 9
+    header = next(ln for ln in lines[sheet_at:] if ln.startswith("| No |"))
+    assert all(ln.count("|") == header.count("|") for ln in sheet)
     for col in draft_eval.RUBRIC:
-        assert col in md
-    assert "synthetic" in md
+        assert col in header
+    assert "synthetic" in md and "--summarize" in md
+    means, complete, total, errors = draft_eval.summarize(md)
+    assert (complete, total, errors) == (0, 9, []) and all(m is None for m in means.values())
+
+
+def _fill_sheet(md, scores):
+    """Isi Lembar nilai baris demi baris dengan `scores` (list nilai per baris)."""
+    out, i = [], 0
+    in_sheet = False
+    for ln in md.splitlines():
+        in_sheet = in_sheet or ln == draft_eval.SHEET_HEADING
+        if in_sheet and ln.startswith("| ") and ln[2].isdigit() and i < len(scores):
+            cells = ln.split("|")
+            cells[5:5 + len(draft_eval.RUBRIC)] = [f" {v} " for v in scores[i]]
+            ln, i = "|".join(cells), i + 1
+        out.append(ln)
+    return "\n".join(out)
+
+
+def test_draft_eval_summarize_averages_and_validation():
+    rows = draft_eval.run_eval(None, now=datetime(2026, 11, 9, 10, 0))
+    md = draft_eval.to_markdown(rows, "m", 0.7, True, datetime(2026, 11, 9, 10, 0))
+    filled = _fill_sheet(md, [[5, 4, 5, 5, 4], [3, 4, 5, 5, 2], [4, 4, 5, "", 3]])
+    means, complete, total, errors = draft_eval.summarize(filled)
+    assert (complete, total, errors) == (2, 9, [])
+    assert means["Nada (1-5)"] == 4.0 and means["Siap kirim (1-5)"] == 3.0
+    assert means["Tanpa fakta karangan (1-5)"] == 5.0  # sel kosong tidak ikut dihitung
+    _, _, _, errors = draft_eval.summarize(_fill_sheet(md, [[5, 4, 7, 5, "x"]]))
+    assert len(errors) == 2 and "bukan angka 1-5" in errors[0]
+    assert draft_eval.summarize("# tanpa lembar nilai")[3]
 
 
 def test_draft_eval_main_requires_key_unless_dry_run(tmp_path, capsys):
