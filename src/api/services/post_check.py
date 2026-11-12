@@ -1,5 +1,7 @@
 """Post-check draft pesan (AI_SPEC B3): tolak output yang melanggar aturan sebelum disimpan/ditampilkan.
 
+Aturan bertanda "v2" ditambahkan setelah evaluasi prompt v1 (docs/PROMPT_ENGINEERING.md bagian 10).
+
 `check_draft` mengembalikan daftar alasan pelanggaran (bahasa Indonesia); daftar kosong = lolos.
 Fakta yang memang diberikan (nama kelas, pelatih, nama customer) di-"mask" lebih dulu agar, misalnya, kelas
 "Aerobic Low Impact" atau "Senam Ringan Lansia" tidak dianggap kebocoran label.
@@ -50,7 +52,17 @@ FORBIDDEN_PATTERNS: list[tuple[re.Pattern, str]] = [
      "bernada menekan/rasa bersalah"),
     # singkatan informal (terutama tidak cocok untuk lansia)
     (re.compile(r"\b(yg|dgn|utk|tdk|krn|sdh|blm|tsb|dll|dsb|mksh|trims|thx|bpk)\b", _I), "memakai singkatan"),
+    # v2: mengungkit pesan yang sudah dikirim (terkesan menagih balasan)
+    (re.compile(r"\bkami\s+(?:sudah\s+|sempat\s+|pernah\s+|telah\s+)?mengirim(?:kan)?\s+pesan\b", _I),
+     "mengungkit pesan yang sudah dikirim"),
+    # v2: berasumsi customer sakit/bermasalah, atau menuntut balasan
+    (re.compile(r"\b(serius|sakit|sembuh|cedera|musibah)\b|\bkabar baik dari\b", _I),
+     "berasumsi customer sakit/bermasalah atau menuntut balasan"),
 ]
+# v2: partikel santai tidak cocok untuk persona yang butuh nada sopan/profesional
+CASUAL_PARTICLES = re.compile(r"\b(ya|kok|nih|dong|sih|deh)\b", _I)
+FORMAL_PERSONAS = ("lansia", "menengah_atas")
+MAX_SEMOGA = 2
 
 _MARKDOWN = re.compile(r"\*|__|```|\]\(|^\s*#|^\s*[-•]\s", re.MULTILINE)
 _PLACEHOLDER = re.compile(r"\[[^\]]*\]|\{[^}]*\}|<[^>]+>")
@@ -85,7 +97,8 @@ def _mask_known_facts(text: str, ctx: DraftContext) -> str:
 
 
 def _allowed_dates(ctx: DraftContext) -> tuple[set[tuple[int, int]], set[str]]:
-    days = [d for d in (ctx.waktu_kelas, ctx.tanggal_pesan_terakhir, ctx.now) if d]
+    # v2: tanggal pesan terakhir hanya konteks, sehingga TIDAK termasuk tanggal yang boleh disebut.
+    days = [d for d in (ctx.waktu_kelas, ctx.now) if d]
     return {(d.day, d.month) for d in days}, {HARI[d.weekday()].lower() for d in days}
 
 
@@ -112,6 +125,15 @@ def check_draft(text: str, ctx: DraftContext) -> list[str]:
         match = pattern.search(masked)
         if match:
             reasons.append(f"{reason} ('{match.group(0).strip()}')")
+    if ctx.persona in FORMAL_PERSONAS:
+        match = CASUAL_PARTICLES.search(masked)
+        if match:
+            reasons.append(f"memakai partikel santai untuk persona {ctx.persona} ('{match.group(0)}')")
+    semoga = len(re.findall(r"\bsemoga\b", masked, _I))
+    if semoga > MAX_SEMOGA:
+        reasons.append(f"terlalu banyak harapan/doa ('semoga' {semoga}x; maksimal {MAX_SEMOGA})")
+    if len(re.findall(r"\bsehat\b", masked, _I)) > 1:
+        reasons.append("mengulang doa yang sama ('sehat' lebih dari 1x)")
     lowered = text.lower()
     for factor in ctx.top_factors:
         if factor and factor.lower() in lowered:

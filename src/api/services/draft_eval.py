@@ -6,7 +6,10 @@ Dijalankan oleh PEMILIK dengan API key asli (data skenario 100% synthetic). Dari
     python -m src.api.services.draft_eval              # memanggil Gemini (butuh GEMINI_API_KEY di .env)
     python -m src.api.services.draft_eval --dry-run    # tanpa Gemini (template), hanya untuk cek format
 
-Hasil ditulis ke docs/draft_eval/draft_eval_<versi-prompt>_<tanggal-jam>.md. Nilai rubrik 1-5 diisi MANUAL.
+Hasil ditulis ke docs/draft_eval/draft_eval_<versi-prompt>_<tanggal-jam>.md. Nilai rubrik 1-5 diisi MANUAL di
+bagian "Lembar nilai", lalu rata-ratanya dihitung dengan:
+
+    python -m src.api.services.draft_eval --summarize docs\\draft_eval\\<nama-file>.md
 """
 from __future__ import annotations
 
@@ -92,13 +95,46 @@ def _input_summary(ctx: DraftContext) -> str:
     return "<br>".join(_cell(p) for p in parts)
 
 
+SHEET_HEADING = "## Lembar nilai (ISI DI SINI)"
+RUBRIC_GUIDE = [
+    "Ketik satu angka 1-5 di setiap sel kosong (1 = buruk, 5 = sangat baik). Kolom Catatan boleh dikosongkan.",
+    "Baca draft di tabel **Hasil** di atas (cocokkan lewat kolom No), lalu nilai dengan panduan ini:",
+    "",
+    "| Kolom | 5 | 3 | 1 |",
+    "|---|---|---|---|",
+    "| Nada | Gaya pas dengan persona dan prioritas, hangat/sopan, tidak menekan | Umumnya pas, ada bagian kaku, "
+    "terlalu santai, atau berlebihan | Menyalahkan, menekan, atau tidak sopan |",
+    "| Info kelas | Nama kelas, hari/tanggal, jam, dan pelatih benar dan jelas | Ada yang kurang jelas atau "
+    "terlewat | Salah atau tidak ada |",
+    "| Tanpa kebocoran label | Tidak menyebut prioritas/risiko/AI/skor/statistik absen/label persona | "
+    "Ada sindiran samar | Jelas menyebut label atau data internal |",
+    "| Tanpa fakta karangan | Semua isi berasal dari data | Ada tambahan kecil yang tidak berbahaya | "
+    "Mengarang jadwal, harga, promo, atau klaim kesehatan |",
+    "| Siap kirim | Bisa langsung dikirim (4 = edit 1-2 kata) | Perlu edit satu kalimat (2 = edit banyak) | "
+    "Harus ditulis ulang |",
+    "",
+    "Setelah semua terisi, hitung rata-rata otomatis (PowerShell):",
+    "`python -m src.api.services.draft_eval --summarize <path file ini>`",
+]
+
+
+def scoring_sheet(entries: list[tuple[int, str, str, str]]) -> list[str]:
+    """Tabel nilai ringkas: satu baris per skenario (no, persona, prioritas, jenis pesan), sel nilai kosong."""
+    lines = [SHEET_HEADING, "", *RUBRIC_GUIDE, "",
+             "| No | Persona | Prioritas | Jenis pesan | " + " | ".join(RUBRIC) + " | Catatan |",
+             "|---|---|---|---|" + "---|" * (len(RUBRIC) + 1)]
+    for no, persona, priority, mtype in entries:
+        lines.append(f"| {no} | {persona} | {priority} | {mtype} |" + "  |" * (len(RUBRIC) + 1))
+    return lines
+
+
 def to_markdown(rows: list[dict], model: str, temperature: float | None, dry_run: bool, now: datetime) -> str:
     gem = sum(r["result"].source == "gemini" for r in rows)
     lines = [
         f"# Evaluasi draft pesan - prompt {PROMPT_VERSION}",
         "",
-        "> PROTOTYPE - seluruh skenario memakai data **synthetic**. Nilai rubrik diisi MANUAL oleh evaluator "
-        "(1 = buruk, 5 = sangat baik). Jangan mengubah kolom Output.",
+        "> PROTOTYPE - seluruh skenario memakai data **synthetic**. Nilai rubrik diisi MANUAL oleh evaluator di "
+        "bagian **Lembar nilai** di bawah. Jangan mengubah kolom Output.",
         "",
         f"- Waktu jalan: {now:%Y-%m-%d %H:%M} WIB",
         f"- Model: {'(dry-run, tanpa Gemini)' if dry_run else model}",
@@ -106,8 +142,10 @@ def to_markdown(rows: list[dict], model: str, temperature: float | None, dry_run
         f"- Versi prompt: {PROMPT_VERSION}",
         f"- Sumber draft: {gem} gemini, {len(rows) - gem} template_fallback dari {len(rows)} skenario",
         "",
-        "| No | Persona | Prioritas | Input | Output | Sumber | Catatan sistem | " + " | ".join(RUBRIC) + " |",
-        "|---|---|---|---|---|---|---|" + "---|" * len(RUBRIC),
+        "## Hasil",
+        "",
+        "| No | Persona | Prioritas | Input | Output | Sumber | Catatan sistem |",
+        "|---|---|---|---|---|---|---|",
     ]
     for r in rows:
         sc, res = r["scenario"], r["result"]
@@ -116,12 +154,16 @@ def to_markdown(rows: list[dict], model: str, temperature: float | None, dry_run
         if res.warning:
             notes.append(f"warning: {res.warning}")
         lines.append(f"| {sc.no} | {sc.persona} | {sc.priority} | {_input_summary(sc.ctx)} | {_cell(res.text)} | "
-                     f"{res.source} | {_cell('<br>'.join(notes))} | " + " | ".join(" " for _ in RUBRIC) + " |")
+                     f"{res.source} | {_cell('<br>'.join(notes))} |")
+    entries = [(r["scenario"].no, r["scenario"].persona, r["scenario"].priority, r["scenario"].ctx.message_type)
+               for r in rows]
     lines += [
+        "",
+        *scoring_sheet(entries),
         "",
         "## Ringkasan (isi manual)",
         "",
-        "- Rata-rata per kolom rubrik: ...",
+        "- Rata-rata per kolom rubrik: (tempel hasil perintah --summarize)",
         "- Masalah yang ditemukan: ...",
         "- Perbaikan untuk versi prompt berikutnya: ...",
         "",
@@ -135,6 +177,54 @@ def to_markdown(rows: list[dict], model: str, temperature: float | None, dry_run
     return "\n".join(lines)
 
 
+def summarize(text: str) -> tuple[dict[str, float | None], int, int, list[str]]:
+    """Baca Lembar nilai -> (rata-rata per kolom, baris terisi lengkap, total baris, daftar kesalahan isian)."""
+    lines = text.splitlines()
+    try:
+        start = lines.index(SHEET_HEADING)
+    except ValueError:
+        return {}, 0, 0, [f"Bagian '{SHEET_HEADING}' tidak ditemukan di file."]
+    values: dict[str, list[int]] = {col: [] for col in RUBRIC}
+    errors: list[str] = []
+    total = complete = 0
+    for line in lines[start + 1:]:
+        if line.startswith("## "):
+            break
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if not line.startswith("| ") or not cells[0].isdigit():
+            continue
+        total += 1
+        filled = 0
+        for col, raw in zip(RUBRIC, cells[4:4 + len(RUBRIC)]):
+            if not raw:
+                continue
+            if raw in {"1", "2", "3", "4", "5"}:
+                values[col].append(int(raw))
+                filled += 1
+            else:
+                errors.append(f"Baris No {cells[0]}, kolom '{col}': '{raw}' bukan angka 1-5.")
+        complete += filled == len(RUBRIC)
+    means = {col: (round(sum(v) / len(v), 2) if v else None) for col, v in values.items()}
+    return means, complete, total, errors
+
+
+def _print_summary(path: Path) -> int:
+    means, complete, total, errors = summarize(path.read_text(encoding="utf-8"))
+    for err in errors:
+        print(err, file=sys.stderr)
+    if not total:
+        return 1
+    print(f"Baris terisi lengkap: {complete}/{total}\n")
+    print("| Kolom rubrik | Rata-rata |\n|---|---|")
+    for col, mean in means.items():
+        print(f"| {col} | {'-' if mean is None else f'{mean:.2f}'} |")
+    filled = [m for m in means.values() if m is not None]
+    if filled:
+        print(f"| **Rata-rata seluruh kolom** | **{sum(filled) / len(filled):.2f}** |")
+    print("\nSalin tabel di atas ke bagian 'Ringkasan' di file evaluasi.")
+    return 1 if errors else 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Evaluasi 9 skenario draft pesan (3 persona x 3 prioritas).")
     parser.add_argument("--dry-run", action="store_true", help="Tanpa memanggil Gemini (memakai template).")
@@ -142,8 +232,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--message-type", choices=MESSAGE_TYPES, default=None,
                         help="Paksa satu jenis pesan untuk semua skenario (default: dipetakan dari prioritas).")
     parser.add_argument("--out", type=Path, default=None, help="Path file Markdown keluaran.")
+    parser.add_argument("--summarize", type=Path, default=None, metavar="FILE",
+                        help="Hitung rata-rata rubrik dari Lembar nilai di FILE (tanpa memanggil Gemini).")
     args = parser.parse_args(argv)
 
+    if args.summarize:
+        return _print_summary(args.summarize)
     settings = get_settings()
     if not args.dry_run and not settings.gemini_api_key:
         print("GEMINI_API_KEY belum diisi di .env. Isi dulu, atau jalankan dengan --dry-run.", file=sys.stderr)

@@ -43,3 +43,10 @@
 | 39 | 4 | Template cadangan tidak bergantung prioritas dan lebih ringkas (±32-53 kata) daripada target Gemini | Template harus aman untuk semua kasus; spesifikasi: per persona x message_type |
 | 40 | 4 | `draft_eval.py` memetakan Low→reminder_kelas, Medium→follow_up_tidak_merespons, High→follow_up_absen; jeda 5 detik antarskenario | 9 panggilan tetap mencakup 3 jenis pesan dan aman untuk batas per menit free tier |
 | 41 | 4 | Tes draft memblokir semua koneksi socket kecuali loopback (dibutuhkan event loop asyncio di Windows) dan mengosongkan `GEMINI_API_KEY` | Bukti bahwa tes tidak pernah memanggil Gemini/Supabase |
+| 42 | 4 | Prompt v2: tanggal pesan terakhir tetap dikirim ke Gemini sebagai konteks (AI_SPEC B1) tetapi dilarang ditulis; post-check tidak lagi mengizinkan tanggal/hari itu | Evaluasi v1: 5 dari 9 draft mengungkit pesan lama beserta tanggalnya, terasa menagih balasan |
+| 43 | 4 | Aturan doa v2 = tidak diulang ("semoga" maks. 2, "sehat" maks. 1), bukan "satu kalimat doa" | Dua harapan berbeda terasa natural untuk ibu-ibu (#2, #3 v1); yang bermasalah adalah pengulangan (#6) |
+| 44 | 4 | Partikel santai (ya, kok, nih, dong, sih, deh) ditolak hanya untuk persona lansia dan menengah_atas | Sesuai gaya persona; persona ibu-ibu memang akrab |
+| 45 | 4 | Target panjang tidak diubah di v2; draft Low 49 kata dianggap memenuhi | AI_SPEC B2 menetapkan 60-80 kata sebagai batas maksimal |
+| 46 | 4 | Kalimat tanpa subjek hanya diatur lewat prompt, tidak dicek otomatis | Tidak bisa dideteksi andal dengan pola kata |
+| 47 | 4 | File hasil evaluasi `docs/draft_eval/*.md` ikut di-commit | Bukti iterasi prompt untuk penilaian (hanya berisi data synthetic) |
+| 48 | 4 | Rubrik evaluasi v1 dinilai oleh asisten AI atas permintaan pemilik, diberi label jelas di file hasil dan PROMPT_ENGINEERING.md | Pemilik mendelegasikan penilaian; transparansi penilai wajib karena penilai ikut menyusun prompt |
