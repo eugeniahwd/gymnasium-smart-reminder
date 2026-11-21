@@ -7,12 +7,14 @@ Backend: FastAPI. Dokumentasi interaktif otomatis (Swagger/OpenAPI): **`/docs`**
 
 ## Menjalankan lokal
 
-```bash
+```powershell
 # .env berisi DATABASE_URL (Supabase, Session pooler). Model dimuat dari src/ml/artifacts/.
 uvicorn src.api.main:app --reload          # http://localhost:8000/docs
 python -m src.data_generation.seed_demo    # opsional: lanjutkan data synthetic sampai hari ini (untuk demo)
 python -m pytest tests -q
 ```
+
+Versi live: `https://<url-render>/docs` (lihat `docs/DEPLOYMENT.md`).
 
 Konfigurasi lewat environment variable: `DATABASE_URL`, `CORS_ORIGINS` (pisahkan koma), `LOG_LEVEL`,
 `APP_TIMEZONE`, `GEMINI_API_KEY`, `GEMINI_MODEL` (kosong → default di `config.py`), serta opsional
@@ -122,5 +124,5 @@ kejadian: `cold_start: true`, `note: "riwayat belum cukup"`, prioritas dibatasi 
 | 422 | `validation_error` | Input tidak valid (pesan merinci field) |
 | 422 | `invalid_date` | Parameter `date` bukan `today` / `YYYY-MM-DD` |
 | 503 | `model_unavailable` | Artefak model tidak termuat; API tetap hidup |
-| 503 | `database_unavailable` | `DATABASE_URL` kosong / database tidak terjangkau |
+| 503 | `database_unavailable` | `DATABASE_URL` kosong, atau database tidak bisa dihubungi (mis. Supabase ter-pause, koneksi putus); detail tidak membocorkan alamat database |
 | 500 | `internal_error` | Kesalahan tak terduga (detail hanya di log server) |

@@ -1,31 +1,26 @@
 # ============================================================
-# Gymnasium Smart Reminder & Follow-up — Requirements
+# Gymnasium Smart Reminder & Follow-up - dependensi API (Render)
 # ============================================================
-
-# --- Data & ML ---
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-jupyter
-joblib
+# Versi dipin dari lingkungan pengembangan (Python 3.12.10, pip freeze 21 Nov 2026).
+# Pengembangan lokal (notebook, UI, tes): pip install -r requirements-dev.txt
+# UI Streamlit Cloud memakai src/ui/requirements.txt.
 
 # --- Backend ---
-fastapi
-uvicorn[standard]
-pydantic
-sqlalchemy
-psycopg2-binary
-python-dotenv
-httpx
+fastapi==0.162.0
+uvicorn[standard]==0.54.0
+pydantic==2.14.2
+sqlalchemy==2.1.6
+psycopg2-binary==2.9.13
+python-dotenv==1.2.4
+httpx==0.28.1
 
-# --- Frontend ---
-streamlit
-requests
+# --- Data & ML (inference) ---
+pandas==3.1.0
+numpy==2.5.4
+# scikit-learn HARUS sama dengan src/ml/artifacts/model_metadata.json; jika beda, model gagal dimuat (/predict 503)
+scikit-learn==1.9.1
+joblib==1.6.0
+tzdata==2026.6
 
 # --- Generative AI ---
-google-genai
-
-# --- Testing ---
-pytest
+google-genai==2.34.0

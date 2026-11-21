@@ -1,0 +1,7 @@
+# Dependensi UI Streamlit (ringan: tanpa scikit-learn/FastAPI/SQLAlchemy).
+# Streamlit Community Cloud mencari file dependensi di folder entrypoint (src/ui/) lebih dulu, baru root repo,
+# sehingga file ini yang dipakai saat deploy src/ui/app.py.
+# https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies
+streamlit==1.66.1
+requests==2.34.2
+pandas==3.1.0

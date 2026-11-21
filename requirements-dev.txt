@@ -1,0 +1,12 @@
+# Pengembangan lokal: API + UI + notebook + tes.
+#   pip install -r requirements-dev.txt
+-r requirements.txt
+-r src/ui/requirements.txt
+
+# --- Notebook & visualisasi (EDA, evaluasi model) ---
+matplotlib==3.11.2
+seaborn==0.13.2
+jupyter==1.1.1
+
+# --- Testing ---
+pytest==9.2.0

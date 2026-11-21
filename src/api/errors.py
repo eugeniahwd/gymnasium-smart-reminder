@@ -6,9 +6,15 @@ import logging
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from sqlalchemy import exc as sa_exc
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 logger = logging.getLogger("gymnasium.api")
+
+DB_UNAVAILABLE_DETAIL = ("Database tidak dapat dihubungi. Coba lagi beberapa saat; jika memakai Supabase free tier, "
+                         "pastikan project tidak sedang ter-pause.")
+# Masalah koneksi/pool, bukan kesalahan data (IntegrityError dll. tetap 500 karena menandakan bug).
+DB_CONNECTION_ERRORS = (sa_exc.OperationalError, sa_exc.InterfaceError, sa_exc.DisconnectionError, sa_exc.TimeoutError)
 
 _HTTP_CODES = {404: "not_found", 405: "method_not_allowed", 401: "unauthorized", 403: "forbidden"}
 
@@ -42,6 +48,13 @@ def register_error_handlers(app: FastAPI) -> None:
         code = _HTTP_CODES.get(exc.status_code, f"http_{exc.status_code}")
         detail = "Endpoint tidak ditemukan." if exc.status_code == 404 else str(exc.detail)
         return _json(exc.status_code, code, detail)
+
+    async def _db_unavailable(_: Request, exc: Exception):
+        logger.error("Database tidak dapat dihubungi: %s", type(exc).__name__)
+        return _json(503, "database_unavailable", DB_UNAVAILABLE_DETAIL)
+
+    for exc_class in DB_CONNECTION_ERRORS:
+        app.add_exception_handler(exc_class, _db_unavailable)
 
     @app.exception_handler(Exception)
     async def _unhandled(_: Request, exc: Exception):

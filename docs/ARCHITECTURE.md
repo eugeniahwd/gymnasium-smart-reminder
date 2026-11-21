@@ -30,7 +30,7 @@ flowchart LR
 src/api/
 ├── main.py            # create_app(), CORS, lifespan (muat model), middleware log
 ├── config.py          # Settings dari env
-├── errors.py          # APIError + handler ({"detail","code"})
+├── errors.py          # APIError + handler ({"detail","code"}); DB tidak terjangkau -> 503 database_unavailable
 ├── deps.py            # get_db, get_model, get_draft_generator
 ├── timeutil.py        # waktu WIB, masking nomor di log
 ├── db/                # engine & session (driver psycopg2), model ORM
@@ -46,6 +46,30 @@ src/api/
     ├── draft_service.py       # alur /generate-draft (cache, 404/409, fallback)
     └── draft_eval.py          # skrip evaluasi 9 skenario (dijalankan pemilik)
 ```
+
+## Struktur kode UI (Streamlit)
+
+```
+src/ui/
+├── app.py             # entrypoint: st.navigation + sidebar (disclaimer PROTOTYPE, status API)
+├── api_client.py      # satu-satunya jalur ke data: wrapper requests -> FastAPI, error {"detail","code"} -> ApiError
+├── helpers.py         # fungsi murni: link wa.me, format tanggal WIB, label/badge, API_BASE_URL
+├── components.py      # komponen Streamlit kecil: spinner cold start, pesan error, badge, flash
+├── requirements.txt   # dependensi ringan untuk Streamlit Community Cloud (tanpa scikit-learn)
+└── pages/
+    ├── reminder_hari_ini.py  # inti: daftar per tanggal kelas -> alasan prioritas -> draft -> edit -> WA -> status
+    ├── customer.py           # CRUD customer
+    ├── jadwal.py             # CRUD jadwal
+    └── riwayat.py            # riwayat reminder per customer + riwayat status
+```
+
+- UI **tidak mengimpor** `src.api`, SQLAlchemy, atau Gemini (dijaga tes `test_ui_never_imports_backend_...`).
+- `API_BASE_URL` dibaca dari `st.secrets` lalu environment variable; tidak bisa diubah dari UI.
+- Timeout baca 90 detik (150 detik untuk generate draft) karena Render free tier bisa butuh ~1 menit untuk bangun;
+  spinner menampilkan "API sedang bangun, bisa memakan sekitar 1 menit".
+- Alur di halaman Reminder Hari Ini: Generate Draft → edit di kotak pesan → "Buka WhatsApp" (link `wa.me` dengan
+  teks terisi, admin menekan kirim sendiri) → centang konfirmasi → "Tandai Terkirim" (pesan disimpan sebagai
+  `final_message`, lalu status Sent dan pesan terkunci) → "Responded" / "No Response".
 
 ## Data demo
 

@@ -22,3 +22,6 @@ Thumbs.db
 
 # CATATAN: data/raw, data/processed, dan src/ml/artifacts SENGAJA tidak di-ignore.
 # CSV synthetic dibutuhkan untuk reproduksi dan artefak model (.joblib) dibutuhkan saat deploy.
+
+# Streamlit secrets (contoh: .streamlit/secrets.toml.example)
+.streamlit/secrets.toml
