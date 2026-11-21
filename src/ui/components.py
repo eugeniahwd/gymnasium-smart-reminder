@@ -70,7 +70,7 @@ def page_header(title: str, caption: str | None = None) -> None:
 
 
 def ensure_api_awake() -> dict | None:
-    """Panggil /health (cache singkat per sesi). Pada cold start Render, spinner menjelaskan bahwa API sedang bangun."""
+    """Panggil /health (cache singkat per sesi). Pada cold start, spinner menjelaskan bahwa API sedang bangun."""
     cached = st.session_state.get("_health")
     if cached and time.monotonic() - cached[0] < HEALTH_TTL_SECONDS:
         return cached[1]

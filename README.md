@@ -9,11 +9,11 @@ Capstone Project Dicoding Bootcamp · ID tim **DB15-I038** · dikerjakan individ
 
 | | URL |
 |---|---|
-| UI admin (Streamlit Community Cloud) | _diisi setelah deploy_ |
-| API + dokumentasi Swagger (Render) | _diisi setelah deploy_ (`/docs`) |
+| Aplikasi admin (Streamlit Community Cloud, UI + API) | _diisi setelah deploy_ |
+| Swagger API (`/docs`) | dijalankan lokal: `uvicorn src.api.main:app --reload` → http://localhost:8000/docs |
 
-> Catatan akses: Render free tier "tidur" setelah 15 menit tanpa trafik; pembukaan pertama bisa memakan sekitar
-> 1 menit.
+> Catatan akses: aplikasi gratis "tidur" setelah 12 jam tanpa pengunjung. Jika muncul halaman tidur, klik
+> **Yes, get this app back up!** lalu tunggu sekitar 1 menit sampai API internal menyala.
 
 ## Masalah dan solusi
 
@@ -103,15 +103,17 @@ muncul lagi di v2. Detail: [`docs/PROMPT_ENGINEERING.md`](docs/PROMPT_ENGINEERIN
 
 ```mermaid
 flowchart LR
-    Admin([Admin]) --> UI[Streamlit UI<br/>Streamlit Community Cloud]
-    UI -->|HTTP/JSON| API[FastAPI<br/>Render]
+    Admin([Admin]) --> UI[Streamlit UI]
+    UI -->|HTTP/JSON 127.0.0.1| API[FastAPI<br/>thread latar]
     API -->|SQLAlchemy| DB[(PostgreSQL<br/>Supabase)]
     API -->|joblib, dimuat sekali| ML[Model prioritas<br/>Logistic Regression]
     API -->|google-genai, hanya dari backend| GEM[Gemini API]
     Admin -->|kirim manual| WA[WhatsApp]
 ```
 
-UI tidak pernah mengakses database atau Gemini langsung. Fitur dihitung dengan modul yang sama saat training dan
+UI dan API di-deploy sebagai satu aplikasi di Streamlit Community Cloud: API FastAPI berjalan di thread latar
+(`embedded_api.py`) dan UI memanggilnya lewat HTTP, sehingga pemisahan UI/API tetap terjaga (konfigurasi Render
+untuk API terpisah juga tersedia). UI tidak pernah mengakses database atau Gemini langsung. Fitur dihitung dengan modul yang sama saat training dan
 inference (`src/ml/feature_engineering.py`). Detail: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 | Layer | Teknologi |
@@ -121,7 +123,7 @@ inference (`src/ml/feature_engineering.py`). Detail: [`docs/ARCHITECTURE.md`](do
 | UI | Streamlit |
 | Database | PostgreSQL (Supabase) |
 | Generative AI | Gemini API (`google-genai`), dipanggil hanya dari backend |
-| Deployment | Render (API) + Streamlit Community Cloud (UI) |
+| Deployment | Streamlit Community Cloud (UI + API dalam satu aplikasi); opsional Render untuk API terpisah |
 
 ## Struktur repo
 
@@ -135,10 +137,12 @@ inference (`src/ml/feature_engineering.py`). Detail: [`docs/ARCHITECTURE.md`](do
 ├── data/                  # raw/ dan processed/ (synthetic)
 ├── sql/migrations/        # 001_init.sql (7 tabel)
 ├── docs/                  # dokumentasi (lihat daftar di bawah) + draft_eval/ (hasil evaluasi prompt)
-├── tests/                 # 215 tes (SQLite in-memory, klien Gemini palsu, tanpa jaringan)
-├── requirements.txt       # dependensi API (Render)
-├── requirements-dev.txt   # pengembangan: API + UI + notebook + tes
-└── render.yaml            # Blueprint Render
+├── tests/                 # 219 tes (SQLite in-memory, klien Gemini palsu, tanpa jaringan)
+├── streamlit_app.py       # entrypoint Streamlit Community Cloud (UI + API internal)
+├── embedded_api.py        # menjalankan API FastAPI di thread latar
+├── requirements.txt       # dependensi runtime (Streamlit Cloud; juga Render)
+├── requirements-dev.txt   # pengembangan: + notebook + tes
+└── render.yaml            # opsional: Blueprint Render untuk API terpisah
 ```
 
 ## Menjalankan secara lokal (Windows PowerShell)
@@ -179,9 +183,12 @@ Melatih ulang model (opsional): `python -m src.ml.train`. Evaluasi draft dengan 
 
 ## Deploy
 
-Ringkasnya: API ke **Render** memakai `render.yaml` (Python 3.12.10, start `uvicorn src.api.main:app --host
-0.0.0.0 --port $PORT`, health check `/health`), UI ke **Streamlit Community Cloud** dengan file utama
-`src/ui/app.py` dan secret `API_BASE_URL`. Langkah lengkap: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+Ringkasnya: **Streamlit Community Cloud** (gratis, tanpa kartu) dengan file utama `streamlit_app.py`, Python 3.12,
+dan Secrets `DATABASE_URL`, `GEMINI_API_KEY`, `GEMINI_MODEL`. API dinyalakan otomatis di dalam aplikasi.
+Alternatif API terpisah di Render (`render.yaml`) juga tersedia, tetapi Render meminta verifikasi kartu.
+Langkah lengkap: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
+Menjalankan UI + API dalam satu perintah secara lokal (seperti di cloud): `streamlit run streamlit_app.py`.
 
 ## Dokumentasi
 
@@ -195,7 +202,7 @@ Ringkasnya: API ke **Render** memakai `render.yaml` (Python 3.12.10, start `uvic
 | [MODEL_EVALUATION.md](docs/MODEL_EVALUATION.md) | Protokol dan hasil evaluasi model |
 | [PROMPT_ENGINEERING.md](docs/PROMPT_ENGINEERING.md) | Prompt, persona, post-check, fallback, evaluasi v1 → v2 |
 | [AI_SPEC.md](docs/AI_SPEC.md) | Spesifikasi ML dan GenAI yang mengikat |
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Deploy Render + Streamlit Community Cloud |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Deploy Streamlit Community Cloud (opsional Render) |
 | [ASSUMPTIONS.md](docs/ASSUMPTIONS.md) | Semua asumsi dan keputusan desain |
 | [CREDITS_AND_LICENSES.md](docs/CREDITS_AND_LICENSES.md) | Library, layanan, dan lisensinya |
 | [PRESENTATION_OUTLINE.md](docs/PRESENTATION_OUTLINE.md) | Kerangka Project Brief, slide, dan naskah video |
@@ -204,9 +211,9 @@ Ringkasnya: API ke **Render** memakai `render.yaml` (Python 3.12.10, start `uvic
 
 - **Data synthetic.** Pola perilaku member sungguhan bisa berbeda; performa nyata tidak dapat disimpulkan.
 - **Keunggulan model moderat** dan kelas **Medium lemah**; prioritas adalah bantuan, keputusan tetap di admin.
-- **API publik tanpa autentikasi** (spesifikasi: admin-only tanpa login). Siapa pun yang tahu URL API bisa
-  memanggilnya; jangan memasukkan data customer sungguhan ke deployment ini.
-- **Free tier**: Render tidur setelah 15 menit (bangun ±1 menit), Supabase ter-pause setelah 1 minggu tidak aktif,
+- **Aplikasi admin tanpa login** (spesifikasi: admin-only tanpa autentikasi). Siapa pun yang tahu URL aplikasi
+  bisa memakainya; API sendiri hanya terbuka di 127.0.0.1. Jangan memasukkan data customer sungguhan.
+- **Free tier**: aplikasi Streamlit tidur setelah 12 jam tanpa pengunjung, Supabase ter-pause setelah 1 minggu,
   kuota harian Gemini kecil (429 → template cadangan). Free tier Gemini boleh memakai input untuk perbaikan produk
   Google, sehingga hanya data synthetic yang dikirim.
 - **Post-check berbasis pola kata**: bisa meloloskan pelanggaran halus atau menolak kalimat wajar; admin tetap

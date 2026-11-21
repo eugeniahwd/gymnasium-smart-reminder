@@ -9,7 +9,7 @@ from typing import Any
 
 import requests
 
-# (connect, read) dalam detik. Read panjang karena Render free tier bisa "tidur" dan butuh ~1 menit untuk bangun.
+# (connect, read) dalam detik. Read panjang karena layanan gratis bisa "tidur" dan butuh ~1 menit untuk bangun.
 DEFAULT_TIMEOUT = (10, 90)
 DRAFT_TIMEOUT = (10, 150)  # Gemini + retry + 1 regenerasi
 PAGE_SIZE = 200  # batas maksimum `limit` di API

@@ -14,7 +14,8 @@ python -m src.data_generation.seed_demo    # opsional: lanjutkan data synthetic 
 python -m pytest tests -q
 ```
 
-Versi live: `https://<url-render>/docs` (lihat `docs/DEPLOYMENT.md`).
+Di deploy Streamlit Community Cloud (Opsi A), API hanya terbuka untuk UI (127.0.0.1), sehingga Swagger dibuka
+dari API lokal. Pada Opsi B (Render), Swagger ada di `https://<url-render>/docs` (lihat `docs/DEPLOYMENT.md`).
 
 Konfigurasi lewat environment variable: `DATABASE_URL`, `CORS_ORIGINS` (pisahkan koma), `LOG_LEVEL`,
 `APP_TIMEZONE`, `GEMINI_API_KEY`, `GEMINI_MODEL` (kosong → default di `config.py`), serta opsional

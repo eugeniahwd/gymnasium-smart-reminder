@@ -1,9 +1,14 @@
 # ============================================================
-# Gymnasium Smart Reminder & Follow-up - dependensi API (Render)
+# Gymnasium Smart Reminder & Follow-up - dependensi runtime
 # ============================================================
-# Versi dipin dari lingkungan pengembangan (Python 3.12.10, pip freeze 21 Nov 2026).
-# Pengembangan lokal (notebook, UI, tes): pip install -r requirements-dev.txt
-# UI Streamlit Cloud memakai src/ui/requirements.txt.
+# Dipakai oleh: (1) Streamlit Community Cloud dengan entrypoint `streamlit_app.py` (UI + API satu aplikasi),
+# (2) Render (API saja, opsional). Versi dipin dari lingkungan pengembangan (Python 3.12.10, 21 Nov 2026).
+# Pengembangan lokal (notebook, tes): pip install -r requirements-dev.txt
+# src/ui/requirements.txt hanya dipakai bila entrypoint Streamlit Cloud = src/ui/app.py (UI saja + API eksternal).
+
+# --- UI (Streamlit) ---
+streamlit==1.66.1
+requests==2.34.2
 
 # --- Backend ---
 fastapi==0.162.0

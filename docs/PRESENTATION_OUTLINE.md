@@ -25,7 +25,7 @@ synthetic**.
 8. **GenAI**: Gemini (`gemini-3.5-flash-lite`) dipanggil hanya dari backend; persona × intensitas prioritas;
    larangan keras; post-check otomatis; template cadangan. Evaluasi 9 skenario: rubrik rata-rata v1 4,40 → v2
    4,73 (dinilai dengan bantuan model AI, indikatif).
-9. **Produk**: FastAPI (Render) + Streamlit (Community Cloud) + PostgreSQL (Supabase); alur Scheduled → Sent →
+9. **Produk**: Streamlit + FastAPI (satu aplikasi di Streamlit Community Cloud) + PostgreSQL (Supabase); alur Scheduled → Sent →
    Responded/No Response; link `wa.me` dengan teks terisi.
 10. **Keterbatasan**: data synthetic, keunggulan moderat, Medium lemah, API tanpa autentikasi, kuota/tidur free
     tier, post-check berbasis pola, evaluasi draft kecil.
@@ -46,14 +46,14 @@ synthetic**.
 | 7 | GenAI: desain prompt | Persona × prioritas, larangan keras, top_factors tidak dikirim ke Gemini | Potongan prompt dari PROMPT_ENGINEERING §3 |
 | 8 | GenAI: keandalan | Post-check + 1x regenerasi + template cadangan; retry 429/5xx/timeout | Diagram alur PROMPT_ENGINEERING §1 |
 | 9 | Iterasi prompt v1 → v2 | Masalah v1 (mengungkit pesan lama, "kendala serius"), perbaikan, rubrik 4,40 → 4,73 | Contoh draft #9 v1 vs v2 |
-| 10 | Arsitektur & deploy | Streamlit → FastAPI → Supabase/Model/Gemini; Render + Community Cloud; tes tanpa jaringan | Diagram arsitektur README |
+| 10 | Arsitektur & deploy | Streamlit → FastAPI (HTTP lokal) → Supabase/Model/Gemini; satu aplikasi di Community Cloud; tes tanpa jaringan | Diagram arsitektur README |
 | 11 | Keterbatasan | Daftar jujur (lihat Project Brief poin 10) | — |
 | 12 | Penutup | Jawaban research question, tautan live | QR ke URL UI **[isi]** |
 
 ## 3. Naskah video 10 menit
 
-**Persiapan sebelum merekam:** jalankan `python -m src.data_generation.seed_demo`; buka `<url-render>/health`
-±1 menit sebelumnya; buka UI dan pastikan sidebar "Database: terhubung"; pilih hari Senin–Sabtu. Nomor WhatsApp di
+**Persiapan sebelum merekam:** jalankan `python -m src.data_generation.seed_demo`; buka URL aplikasi
+beberapa menit sebelumnya (jika tidur, klik "Yes, get this app back up!"); buka UI dan pastikan sidebar "Database: terhubung"; pilih hari Senin–Sabtu. Nomor WhatsApp di
 data synthetic (`628990…`) fiktif, jadi untuk langkah WhatsApp buat dulu **satu customer demo dengan nomormu
 sendiri** (halaman Customer, mis. "Ibu Demo", persona ibu-ibu) lalu reminder untuk kelas hari ini (Reminder Hari
 Ini → Buat reminder baru).
@@ -66,7 +66,7 @@ Ini → Buat reminder baru).
 | 2:30–3:50 | Model | Slide 5–6 | "Saya bandingkan empat model dengan split per customer. Logistic Regression mencapai macro-F1 0,670 di test, dibanding baseline 0,610; di cross-validation 0,666 dibanding 0,565. Random Forest sedikit lebih tinggi di satu split test, tetapi tidak di cross-validation dan recall High-nya sama dengan baseline, jadi saya pilih Logistic Regression. Jawaban jujurnya: lebih baik dari baseline, tetapi moderat, dan kelas Medium paling lemah." |
 | 3:50–5:00 | GenAI | Slide 7–9 | "Prompt menerima data terstruktur: sapaan, persona, arahan sesuai prioritas, kelas, jam, pelatih. Alasan prioritas tidak pernah dikirim ke Gemini. Setiap draft diperiksa otomatis — kata seperti prioritas, risiko, AI, promo, klaim kesehatan, atau jadwal karangan ditolak; jika gagal setelah satu regenerasi atau kuota habis, sistem memakai template cadangan. Dari evaluasi v1 saya menemukan draft mengungkit pesan lama dan berasumsi 'kendala serius'; setelah perbaikan v2, rata-rata rubrik naik dari 4,40 ke 4,73 — dinilai dengan bantuan AI, jadi indikatif." |
 | 5:00–8:30 | **Demo live** | UI | Lihat langkah demo di bawah. |
-| 8:30–9:15 | Teknis | Slide 10 | "Backend FastAPI di Render, UI Streamlit di Community Cloud, database Supabase. Gemini hanya dipanggil dari backend. Ada 215 tes otomatis yang berjalan tanpa jaringan, memakai database SQLite dan klien Gemini palsu." |
+| 8:30–9:15 | Teknis | Slide 10 | "UI Streamlit dan backend FastAPI di-deploy sebagai satu aplikasi di Streamlit Community Cloud — API berjalan di thread terpisah dan UI tetap memanggilnya lewat HTTP — dengan database Supabase. Gemini hanya dipanggil dari backend. Ada 219 tes otomatis yang berjalan tanpa jaringan, memakai database SQLite dan klien Gemini palsu." |
 | 9:15–10:00 | Penutup | Slide 11–12 | "Keterbatasannya: data synthetic, keunggulan model moderat, API tanpa login, dan kuota free tier. Jadi jawaban research question: model ML membantu memprioritaskan lebih baik dari aturan sederhana, dan GenAI mengubah prioritas itu menjadi draft yang hampir siap kirim — dengan admin tetap memegang kendali. Terima kasih." |
 
 ### Langkah demo (5:00–8:30)
@@ -81,7 +81,7 @@ Ini → Buat reminder baru).
 7. Buka **Riwayat status** (Scheduled → Sent → Responded) dan halaman **Riwayat Reminder**.
 8. (Opsional, 20 detik) Pilih reminder persona lain (lansia/menengah atas) → Generate Draft untuk menunjukkan beda
    gaya bahasa.
-9. (Opsional, 15 detik) Buka `<url-render>/docs` untuk menunjukkan Swagger.
+9. (Opsional, 15 detik) Tunjukkan Swagger dari API lokal (`uvicorn src.api.main:app --reload` → `/docs`).
 
 **Tips rekaman:** tutup tab berisi `.env`/dashboard secret; perbesar zoom browser 110–125%; jika API lambat di awal,
 katakan "server gratis sedang bangun" lalu lanjutkan.

@@ -3,7 +3,7 @@
 ```mermaid
 flowchart LR
     Admin([Admin]) --> UI[Streamlit UI<br/>Streamlit Community Cloud]
-    UI -->|HTTP/JSON| API[FastAPI<br/>Render]
+    UI -->|HTTP/JSON| API[FastAPI<br/>thread latar / Render]
     API -->|SQLAlchemy| DB[(PostgreSQL<br/>Supabase)]
     API -->|joblib, dimuat sekali saat startup| ML[Model prioritas<br/>Logistic Regression]
     API -->|google-genai, hanya dari backend| GEM[Gemini API]
@@ -65,11 +65,27 @@ src/ui/
 
 - UI **tidak mengimpor** `src.api`, SQLAlchemy, atau Gemini (dijaga tes `test_ui_never_imports_backend_...`).
 - `API_BASE_URL` dibaca dari `st.secrets` lalu environment variable; tidak bisa diubah dari UI.
-- Timeout baca 90 detik (150 detik untuk generate draft) karena Render free tier bisa butuh ~1 menit untuk bangun;
+- Timeout baca 90 detik (150 detik untuk generate draft) karena layanan gratis bisa butuh ~1 menit untuk bangun;
   spinner menampilkan "API sedang bangun, bisa memakan sekitar 1 menit".
 - Alur di halaman Reminder Hari Ini: Generate Draft → edit di kotak pesan → "Buka WhatsApp" (link `wa.me` dengan
   teks terisi, admin menekan kirim sendiri) → centang konfirmasi → "Tandai Terkirim" (pesan disimpan sebagai
   `final_message`, lalu status Sent dan pesan terkunci) → "Responded" / "No Response".
+
+## Deployment
+
+```mermaid
+flowchart LR
+    B([Browser admin]) --> S
+    subgraph SC[Streamlit Community Cloud - satu aplikasi]
+        S[streamlit_app.py<br/>UI Streamlit] -->|HTTP 127.0.0.1:8000| A[embedded_api.py<br/>FastAPI di thread latar]
+    end
+    A --> DB[(Supabase PostgreSQL<br/>Session pooler)]
+    A --> GEM[Gemini API]
+```
+
+`streamlit_app.py` menyalakan API sekali per proses (`st.cache_resource`), menunggu `/health`, lalu menjalankan UI
+yang sama dengan `src/ui/app.py`. Jika `API_BASE_URL` diisi, API eksternal (mis. Render, `render.yaml`) dipakai
+dan API internal tidak dinyalakan. Detail: `docs/DEPLOYMENT.md`.
 
 ## Data demo
 

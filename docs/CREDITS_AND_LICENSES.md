@@ -45,8 +45,8 @@ Tidak ada dataset, model pra-latih, atau kode pihak ketiga lain yang disalin ke 
 | Layanan | Dipakai untuk | Paket |
 |---|---|---|
 | [Supabase](https://supabase.com) | PostgreSQL terkelola | Free |
-| [Render](https://render.com) | Hosting API | Free web service |
-| [Streamlit Community Cloud](https://streamlit.io/cloud) | Hosting UI | Gratis |
+| [Render](https://render.com) | Opsional: hosting API terpisah (`render.yaml`) | Free web service (meminta verifikasi kartu) |
+| [Streamlit Community Cloud](https://streamlit.io/cloud) | Hosting aplikasi (UI + API internal) | Gratis |
 | [Google AI Studio](https://aistudio.google.com) | API key Gemini | Free tier |
 | [GitHub](https://github.com) | Version control | Gratis |
 | WhatsApp (`wa.me`) | Link pembuka chat dengan teks terisi; pengiriman manual oleh admin | Tanpa integrasi API |
