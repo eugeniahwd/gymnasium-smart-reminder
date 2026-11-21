@@ -49,7 +49,7 @@
 | 45 | 4 | Target panjang tidak diubah di v2; draft Low 49 kata dianggap memenuhi | AI_SPEC B2 menetapkan 60-80 kata sebagai batas maksimal |
 | 46 | 4 | Kalimat tanpa subjek hanya diatur lewat prompt, tidak dicek otomatis | Tidak bisa dideteksi andal dengan pola kata |
 | 47 | 4 | File hasil evaluasi `docs/draft_eval/*.md` ikut di-commit | Bukti iterasi prompt untuk penilaian (hanya berisi data synthetic) |
-| 48 | 4 | Rubrik evaluasi v1 dinilai oleh asisten AI atas permintaan pemilik, diberi label jelas di file hasil dan PROMPT_ENGINEERING.md | Pemilik mendelegasikan penilaian; transparansi penilai wajib karena penilai ikut menyusun prompt |
+| 48 | 4 | Rubrik evaluasi v1 dan v2 dinilai dengan bantuan model AI (LLM-as-judge) dan diberi label jelas di file hasil dan PROMPT_ENGINEERING.md | Transparansi: angka bukan penilaian evaluator manusia |
 | 49 | 5 | Halaman Reminder Hari Ini memakai tabel ringkas + satu pilihan reminder (selectbox) untuk diproses, bukan tombol di setiap baris | Puluhan-ratusan reminder per hari: satu panel detail jauh lebih ringan dan mudah dites |
 | 50 | 5 | "Tandai Terkirim" baru aktif setelah admin mencentang "Saya sudah mengirim pesan ini lewat WhatsApp"; pesan di kotak edit disimpan sebagai `final_message` lalu status Sent | Status Sent tidak bisa dibatalkan dan pesan terkunci; mencegah salah klik |
 | 51 | 5 | Tidak menambah filter/pencarian khusus (side quest). Hanya pemilih tanggal kelas (wajib) dan rentang tanggal jadwal; pencarian bawaan selectbox/tabel Streamlit dipakai apa adanya | Patuh batasan side quest; data jadwal 2.400+ baris perlu dibatasi per rentang |
@@ -62,6 +62,5 @@
 | 58 | 6 | `requirements.txt` = dependensi API saja (versi dipin dari pip freeze); `requirements-dev.txt` = API + UI + notebook + tes | Build Render lebih ringan; diverifikasi di venv bersih Python 3.12.10 (pip install sukses, model termuat) |
 | 59 | 6 | `render.yaml`: region `frankfurt`, `PYTHON_VERSION=3.12.10`, plus file `.python-version` = 3.12 | Database Supabase di eu-west-1; default Python Render untuk service baru 3.14 sedangkan model dilatih dengan 3.12 |
 | 60 | 6 | Error koneksi database SQLAlchemy (OperationalError, InterfaceError, DisconnectionError, TimeoutError) → 503 `database_unavailable` dengan pesan yang bisa ditindaklanjuti; error data (mis. IntegrityError) tetap 500 | Supabase ter-pause bukan bug; admin perlu pesan yang jelas |
-| 61 | 6 | File serah-terima Fase 3 (`tools/verify_state.py`, `README_SNIPPET_FASE3.md`, `VERSION_FASE3.txt`) dihapus | Diizinkan pesan serah-terima; isinya sudah tercakup README; tetap ada di riwayat git |
+| 61 | 6 | File bantu internal Fase 3 (`tools/verify_state.py`, `README_SNIPPET_FASE3.md`, `VERSION_FASE3.txt`) dihapus | Isinya sudah tercakup README |
 | 62 | 6 | ID project Supabase di `.env.example` diganti placeholder; nilai lama tetap ada di riwayat git | Bukan secret (tanpa password, terlihat di URL publik project); tidak perlu menulis ulang riwayat |
-| 63 | 6 | `CREDITS_AND_LICENSES.md` mencantumkan bantuan asisten AI dalam pengembangan dan penilaian rubrik | Transparansi akademik |

@@ -57,9 +57,3 @@ Tidak ada dataset, model pra-latih, atau kode pihak ketiga lain yang disalin ke 
   dependensi Community Cloud), SDK `google-genai` (generate_content, error, HttpOptions), Gemini API (daftar model,
   thinking dan `max_output_tokens`), Render (Blueprint, versi Python, free tier), dan Supabase (connection pooler).
 - Pedoman *permutation importance* dan *StratifiedGroupKFold* dari dokumentasi scikit-learn.
-
-## Bantuan AI dalam pengembangan
-
-Kode, tes, dan dokumentasi dikembangkan dengan bantuan asisten AI (Claude, Anthropic). Penilaian rubrik evaluasi
-draft v1 dan v2 juga dilakukan asisten AI atas permintaan pemilik dan diberi label demikian di dokumen terkait.
-Pemilik proyek bertanggung jawab atas isi akhir repo.

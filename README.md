@@ -81,7 +81,7 @@ _Tangkapan layar ditambahkan pemilik setelah deploy._
 | v1 | 9/9 | 3,67 | 4,89 | 5,00 | 4,89 | 3,56 | 4,40 |
 | v2 | 9/9 | 4,56 | 4,78 | 5,00 | 4,89 | 4,44 | 4,73 |
 
-Skala 1–5. **Rubrik dinilai oleh asisten AI atas permintaan pemilik, belum ditinjau evaluator manusia**, dengan
+Skala 1–5. **Rubrik dinilai dengan bantuan model AI (LLM-as-judge), belum ditinjau evaluator manusia**, dengan
 9 skenario dan satu kali jalan per versi — kenaikan v1 → v2 bersifat **indikatif**. Masalah v1 (mengungkit pesan
 lama beserta tanggalnya, asumsi "kendala serius", partikel santai untuk segmen profesional, doa berulang) tidak
 muncul lagi di v2. Detail: [`docs/PROMPT_ENGINEERING.md`](docs/PROMPT_ENGINEERING.md).
@@ -211,7 +211,7 @@ Ringkasnya: API ke **Render** memakai `render.yaml` (Python 3.12.10, start `uvic
   Google, sehingga hanya data synthetic yang dikirim.
 - **Post-check berbasis pola kata**: bisa meloloskan pelanggaran halus atau menolak kalimat wajar; admin tetap
   wajib membaca draft.
-- **Evaluasi draft** hanya 9 skenario dan dinilai asisten AI.
+- **Evaluasi draft** hanya 9 skenario dan dinilai dengan bantuan model AI.
 
 ## Lisensi dan kredit
 

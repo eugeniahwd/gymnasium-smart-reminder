@@ -24,7 +24,7 @@ synthetic**.
    0,050; recall High 0,691 vs 0,673. Keunggulan moderat; kelas Medium paling lemah (F1 0,530).
 8. **GenAI**: Gemini (`gemini-3.5-flash-lite`) dipanggil hanya dari backend; persona × intensitas prioritas;
    larangan keras; post-check otomatis; template cadangan. Evaluasi 9 skenario: rubrik rata-rata v1 4,40 → v2
-   4,73 (dinilai asisten AI, indikatif).
+   4,73 (dinilai dengan bantuan model AI, indikatif).
 9. **Produk**: FastAPI (Render) + Streamlit (Community Cloud) + PostgreSQL (Supabase); alur Scheduled → Sent →
    Responded/No Response; link `wa.me` dengan teks terisi.
 10. **Keterbatasan**: data synthetic, keunggulan moderat, Medium lemah, API tanpa autentikasi, kuota/tidur free

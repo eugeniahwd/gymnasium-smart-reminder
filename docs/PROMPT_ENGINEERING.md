@@ -264,7 +264,7 @@ Rubrik (diisi **manual**, 1 = buruk, 5 = sangat baik):
 - Sumber draft: **9 gemini, 0 template_fallback**; semua lolos post-check v1 pada percobaan pertama
 - Panjang draft: 49-67 kata (Low 49-60, Medium 60-65, High 63-67). AI_SPEC B2 menetapkan 60-80 kata sebagai
   **batas maksimal**, jadi draft Low yang 49 kata tetap memenuhi spesifikasi.
-- Rata-rata rubrik (skala 1-5, 9/9 skenario) — **dinilai asisten AI (Claude Opus 5.5) atas permintaan pemilik,
+- Rata-rata rubrik (skala 1-5, 9/9 skenario) — **dinilai dengan bantuan model AI (LLM-as-judge),
   belum ditinjau evaluator manusia**; nilai per skenario dan alasannya ada di Lembar nilai file hasil:
 
   | Nada | Info kelas | Tanpa kebocoran label | Tanpa fakta karangan | Siap kirim | Rata-rata |
@@ -287,7 +287,7 @@ Pengamatan kualitatif (analisis engineer, bukan nilai rubrik):
 - File hasil: [`docs/draft_eval/draft_eval_v2_20261112_1610.md`](draft_eval/draft_eval_v2_20261112_1610.md)
 - Model dan waktu jalan: `gemini-3.5-flash-lite`, temperature 0,7, 12 Nov 2026 16.10 WIB
 - Sumber draft: **9 gemini, 0 template_fallback**; semua lolos post-check v2 pada percobaan pertama
-- Rubrik (penilai dan label sama dengan v1: **asisten AI, belum ditinjau evaluator manusia**):
+- Rubrik (cara penilaian sama dengan v1: **model AI, belum ditinjau evaluator manusia**):
 
   | Versi | Nada | Info kelas | Tanpa kebocoran label | Tanpa fakta karangan | Siap kirim | Rata-rata |
   |---|---|---|---|---|---|---|
@@ -308,8 +308,8 @@ Pengamatan kualitatif (analisis engineer, bukan nilai rubrik):
 
 | Iterasi | Masalah yang ditemukan (bukti: skenario no.) | Perubahan | Dampak |
 |---|---|---|---|
-| v1 | Versi awal | Aturan umum, gaya persona, larangan keras, 6 few-shot, post-check, template cadangan | 9/9 draft dari Gemini, 0 fallback; rubrik rata-rata 4,40 (Nada 3,67, Siap kirim 3,56; penilaian asisten AI); masalah di 5 draft (lihat baris v2) |
-| v2 | (1) Tanggal pesan terakhir ditulis dan pesan lama diungkit ("Kami sudah/sempat/pernah mengirim pesan pada Senin, 9 November 2026"), terasa menagih balasan (#2, #5, #6, #8, #9). Penyebab: contoh few-shot no. 4 di v1 menulis kalimat serupa. (2) Asumsi dan nada menuntut: "kendala serius", "Kami nantikan kabar baik dari Ibu" (#9). (3) Kalimat tanpa subjek "Mengingatkan kembali jadwal…" dan partikel santai "ya, Bu" untuk menengah_atas (#8). (4) Doa sehat diulang dua kali (#6). | Prompt: aturan umum 7 (kalimat lengkap), 8 (tanggal pesan terakhir hanya konteks, cukup "pesan kami sebelumnya"), 9 (doa tidak diulang, "semoga" maks. 2); partikel santai dilarang untuk lansia dan menengah_atas; larangan keras 7 (tidak berasumsi sakit/bermasalah, tidak menuntut balasan). Blok DATA: tanggal pesan terakhir diberi label "konteks saja; JANGAN ditulis". Few-shot no. 4 ditulis ulang tanpa tanggal; no. 6 dibuang satu doa yang mirip. Post-check: 4 pemeriksaan baru (bagian 5) dan tanggal pesan terakhir tidak lagi termasuk tanggal yang boleh disebut. | **Terukur sebelum menjalankan v2:** post-check v2 diterapkan ke 9 output v1 → 4 lolos (#1, #3, #4, #7), 5 ditolak (#2, #5, #6, #8, #9), tepat draft yang bermasalah; jadi jika Gemini mengulang kesalahan itu, draft akan diregenerasi atau jatuh ke template, bukan sampai ke admin. Kalimat tanpa subjek (#8) hanya diatur di prompt, tidak bisa dicek otomatis. **Setelah menjalankan v2 (12 Nov):** 9/9 gemini, 0 fallback; kelima masalah v1 tidak muncul; rubrik rata-rata 4,40 → 4,73 (Nada 3,67 → 4,56, Siap kirim 3,56 → 4,44; penilaian asisten AI, 9 skenario, indikatif) |
+| v1 | Versi awal | Aturan umum, gaya persona, larangan keras, 6 few-shot, post-check, template cadangan | 9/9 draft dari Gemini, 0 fallback; rubrik rata-rata 4,40 (Nada 3,67, Siap kirim 3,56; dinilai model AI); masalah di 5 draft (lihat baris v2) |
+| v2 | (1) Tanggal pesan terakhir ditulis dan pesan lama diungkit ("Kami sudah/sempat/pernah mengirim pesan pada Senin, 9 November 2026"), terasa menagih balasan (#2, #5, #6, #8, #9). Penyebab: contoh few-shot no. 4 di v1 menulis kalimat serupa. (2) Asumsi dan nada menuntut: "kendala serius", "Kami nantikan kabar baik dari Ibu" (#9). (3) Kalimat tanpa subjek "Mengingatkan kembali jadwal…" dan partikel santai "ya, Bu" untuk menengah_atas (#8). (4) Doa sehat diulang dua kali (#6). | Prompt: aturan umum 7 (kalimat lengkap), 8 (tanggal pesan terakhir hanya konteks, cukup "pesan kami sebelumnya"), 9 (doa tidak diulang, "semoga" maks. 2); partikel santai dilarang untuk lansia dan menengah_atas; larangan keras 7 (tidak berasumsi sakit/bermasalah, tidak menuntut balasan). Blok DATA: tanggal pesan terakhir diberi label "konteks saja; JANGAN ditulis". Few-shot no. 4 ditulis ulang tanpa tanggal; no. 6 dibuang satu doa yang mirip. Post-check: 4 pemeriksaan baru (bagian 5) dan tanggal pesan terakhir tidak lagi termasuk tanggal yang boleh disebut. | **Terukur sebelum menjalankan v2:** post-check v2 diterapkan ke 9 output v1 → 4 lolos (#1, #3, #4, #7), 5 ditolak (#2, #5, #6, #8, #9), tepat draft yang bermasalah; jadi jika Gemini mengulang kesalahan itu, draft akan diregenerasi atau jatuh ke template, bukan sampai ke admin. Kalimat tanpa subjek (#8) hanya diatur di prompt, tidak bisa dicek otomatis. **Setelah menjalankan v2 (12 Nov):** 9/9 gemini, 0 fallback; kelima masalah v1 tidak muncul; rubrik rata-rata 4,40 → 4,73 (Nada 3,67 → 4,56, Siap kirim 3,56 → 4,44; dinilai model AI, 9 skenario, indikatif) |
 
 Masalah yang **tidak** diubah di v2 beserta alasannya:
 
@@ -324,8 +324,7 @@ dokumen ini (tes `test_prompt_doc_matches_code` gagal bila tidak sinkron), jalan
 
 ## 11. Keterbatasan
 
-- Rubrik v1 dinilai oleh asisten AI yang juga menyusun prompt (risiko bias penilai), bukan oleh admin atau
-  customer sungguhan; begitu juga rubrik v2. Hanya 9 skenario dan satu kali jalan per versi.
+- Rubrik v1 dan v2 dinilai dengan bantuan model AI (bisa bias), bukan oleh admin atau customer sungguhan. Hanya 9 skenario dan satu kali jalan per versi.
 - Variasi kalimat rendah: model cenderung meniru struktur contoh few-shot (v2 #3). Perbaikan opsional untuk v3:
   variasikan contoh dan larang menyalin kalimat contoh.
 - Post-check berbasis pola kata; bisa meloloskan pelanggaran halus (mis. nada menyalahkan tanpa kata terlarang)

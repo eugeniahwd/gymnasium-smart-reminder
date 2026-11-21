@@ -1,6 +1,6 @@
 # AI_SPEC.md — Spesifikasi AI Gymnasium Smart Reminder & Follow-up
 
-> **Dokumen ini mengikat dan melengkapi Fase 1, 2, dan 4.** Baca bersama `AGENTS.md`.
+> Spesifikasi desain model prioritas (bagian A) dan draft pesan Generative AI (bagian B). Implementasi dan hasilnya: `docs/MODEL_EVALUATION.md` dan `docs/PROMPT_ENGINEERING.md`.
 
 ---
 
